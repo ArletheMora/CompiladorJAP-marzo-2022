@@ -1,0 +1,8 @@
+class caminar {
+ def void main(){
+	word a = 5;
+	exact b = 3.4;
+	word c = true;
+	word d = 6.0;
+  }
+}
