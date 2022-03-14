@@ -92,11 +92,11 @@ public class IDE extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Línea", "Columna", "Lexema", "Componente"
+                "Línea", "Columna", "Lexema", "Componente", "Tipo", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -320,7 +320,7 @@ public class IDE extends javax.swing.JFrame {
                 }
                 switch (tokens) {
                     case Simbolo_Especial:
-                        m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, tokens});
+                        //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, tokens});
                         break;
                     case Identificador:
                         m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, tokens});
@@ -342,27 +342,27 @@ public class IDE extends javax.swing.JFrame {
                         }
                         break;
                     case ERROR1:
-                        m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, no se puede tener más de un símbolo "});
+                        //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, no se puede tener más de un símbolo "});
                         errores += "Error léxico 1: Línea " + (lexer.yyline + 1) + " Columna " + (lexer.yycolumn + 1) + " Número invalido, no se puede tener más de un símbolo <" + lexer.lexeme + ">\n";
                         break;
                     case ERROR2:
-                        m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, se esperaba un dígito despues del punto. "});
+                        //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, se esperaba un dígito despues del punto. "});
                         errores += "Error léxico 2: Línea " + (lexer.yyline + 1) + " Columna " + (lexer.yycolumn + 1) + " Número invalido, se esperaba un dígito despues del punto <" + lexer.lexeme + ">\n";
                         break;
                     case ERROR3:
-                        m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, no es posible tener más de un punto en un número"});
+                        //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, no es posible tener más de un punto en un número"});
                         errores += "Error léxico 3: Línea " + (lexer.yyline + 1) + " Columna " + (lexer.yycolumn + 1) + " Número invalido, no es posible tener más de un punto en un número <" + lexer.lexeme + ">\n";
                         break;
                     case ERROR4:
-                        m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, solo es posible tener una e"});
+                        //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, solo es posible tener una e"});
                         errores += "Error léxico 4: Línea " + (lexer.yyline + 1) + " Columna " + (lexer.yycolumn + 1) + " Número invalido, solo es posible tener una e <" + lexer.lexeme + ">\n";
                         break;
                     case ERROR5:
-                        m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Identificador inválido, no se puede tener un número al inicio"});
+                        //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Identificador inválido, no se puede tener un número al inicio"});
                         errores += "Error léxico 5: Línea " + (lexer.yyline + 1) + " Columna " + (lexer.yycolumn + 1) + " Identificador inválido, no se puede tener un número al inicio <" + lexer.lexeme + ">\n";
                         break;
                     default:
-                        m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, tokens});
+                        //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, tokens});
                         break;
                 }
             }
