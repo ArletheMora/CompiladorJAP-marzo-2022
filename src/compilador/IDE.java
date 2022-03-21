@@ -92,11 +92,11 @@ public class IDE extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Línea", "Columna", "Lexema", "Componente", "Tipo", "Valor"
+                "Línea", "Columna", "Lexema", "Tipo", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -280,11 +280,12 @@ public class IDE extends javax.swing.JFrame {
     private void btnAnalizadorLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizadorLexicoActionPerformed
         analizadorLexico();
     }//GEN-LAST:event_btnAnalizadorLexicoActionPerformed
-
+    public static DefaultTableModel m;
+    public static Lexer lexer;
     public void analizadorLexico(){
         //limpiar tabla
 
-        DefaultTableModel m = (DefaultTableModel) tblSimb.getModel();
+        m = (DefaultTableModel) tblSimb.getModel();
         txtConsola.setText("");
         errores = "";
         int a = 0;
@@ -311,7 +312,7 @@ public class IDE extends javax.swing.JFrame {
 
         try {
             Reader lector = new BufferedReader(new FileReader("archivo.jap"));
-            Lexer lexer = new Lexer(lector);
+            lexer = new Lexer(lector);
             while (true) {
                 Tokens tokens = lexer.yylex();
                 if (tokens == null) {
@@ -323,10 +324,9 @@ public class IDE extends javax.swing.JFrame {
                         //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, tokens});
                         break;
                     case Identificador:
-                        m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, tokens});
-
                         if (id.size() == 0) {
-                            id.add(lexer.lexeme);
+                            id.add(new Object[]{lexer.yyline+1,lexer.yycolumn+1,lexer.lexeme});
+                            System.out.println(id.get(0)+"");
                         } else {
                             for (int i = 0; i < id.size(); i++) {
                                 if (id.get(i).equals(lexer.lexeme)) {
@@ -340,6 +340,7 @@ public class IDE extends javax.swing.JFrame {
                                 id.add(lexer.lexeme);
                             }
                         }
+                       
                         break;
                     case ERROR1:
                         //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, no se puede tener más de un símbolo "});
@@ -476,7 +477,7 @@ public class IDE extends javax.swing.JFrame {
     }
 
     public static String[] ident;
-    public static ArrayList<String> id = new ArrayList<>();
+    public static ArrayList<Object> id = new ArrayList<>();
     public static String erroresSint = "";
     public static String todosErrores = "";
     

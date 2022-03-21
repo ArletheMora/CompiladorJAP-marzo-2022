@@ -2,8 +2,7 @@ package compilador;
 
 import java_cup.runtime.Symbol;
 
-parser code
-{:
+parser code{:
     public Lexer lex;
     public static String errores = "";
     StringBuilder m = new StringBuilder("");
@@ -37,6 +36,14 @@ parser code
     }
     public void rstError(){
         errores = "";
+    }
+    
+:};
+
+action code{:
+    public void ObtenDatos(String tipoDato, String identificador, Object valor){
+        IDE.m.addRow(new Object[]{IDE.lexer.yyline + 1, IDE.lexer.yycolumn + 1, identificador, tipoDato, valor});
+        System.out.println("Tipo: "+tipoDato + " Identificador: "+identificador+" Valor: "+valor);
     }
 :};
 
@@ -105,8 +112,8 @@ terminal PR_Catch,
      ERROR5
 ;
 non terminal INICIO, 
-             SENTENCIA, 
-             DECLARA_ID, 
+             SENTENCIA,
+             DECLARA_ID,
              FUNCION_ENTRADA,
              FUNCION_SALIDA,
              SALIDA,   
@@ -191,9 +198,11 @@ INICIO  ::= PR_Class Identificador OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF O
                 this.parser.errores += "Error sintáctico 115. Linea: "+ (eright + 1) + ". Se esperaba la funcion MAIN. \n";
             :}
 ;
+
 FUNCION_DEF ::= FUNCION
             |   FUNCION FUNCION_DEF
 ;
+
 SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA 
             |   FUNCION_ENTRADA | FUNCION_ENTRADA  SENTENCIA
             |   FUNCION_SALIDA | FUNCION_SALIDA  SENTENCIA
@@ -207,7 +216,11 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
             |   ASIGNACION | ASIGNACION SENTENCIA
             |   METODOS_DEF | METODOS_DEF SENTENCIA
 ;
-DECLARA_ID  ::= PR_Exact Identificador OpAsig Numero_Exact PuntoComa
+
+DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa
+                {:
+                   ObtenDatos(t.toString(), i.toString(), v);
+                :}
 
             |   ERRORES Identificador OpAsig  Numero_Exact PuntoComa
             |   PR_Exact ERRORES OpAsig  Numero_Exact PuntoComa
@@ -392,6 +405,7 @@ DECLARA_ID  ::= PR_Exact Identificador OpAsig Numero_Exact PuntoComa
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
 ;
+
 ARITMETICAS ::= NUMERO
             |   Identificador
             |   ERRORES
@@ -408,6 +422,7 @@ ARITMETICAS ::= NUMERO
                     this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";
                 :}
 ;
+
 OP_ARITMETICO   ::= OpAritm_Suma
                 |   OpAritm_Resta
                 |   OpAritm_Mult

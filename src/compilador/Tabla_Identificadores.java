@@ -33,7 +33,7 @@ public class Tabla_Identificadores extends javax.swing.JFrame {
     public void ordenar(){
         IDE.ident= new String[IDE.id.size()];
         for(int i=0; i<IDE.id.size();i++){
-            IDE.ident[i]=IDE.id.get(i);
+            IDE.ident[i]=IDE.id.get(i)+"";
         }
         for(int i=0;i<(IDE.ident.length-1);i++){
                     for(int j=i+1;j<IDE.ident.length;j++){
