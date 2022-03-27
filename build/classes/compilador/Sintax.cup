@@ -104,7 +104,7 @@ terminal PR_Catch,
      SimbEsp_Coma,
      SimbEsp_DosPuntos,
      Simbolo_Especial,
-    PR_Stop,
+     PR_Stop,
      PR_Sleep,
      PR_Filamenttype,
      PR_Setfilamenttype,
@@ -232,7 +232,7 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
 
 DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
-                   ObtenDatos((eright+1)t.toString(), i.toString(), v);
+                   ObtenDatos((eright+1),t.toString(), i.toString(), v);
                 :}
 
             |   ERRORES Identificador OpAsig  Numero_Exact PuntoComa
@@ -267,7 +267,10 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
                     this.parser.errores += "Error semántico 5. Línea: "+ (eright + 1) + " Tipo de dato incompatible. Se esperaba un número exact y se encontró una cadena de texto. \n";
                 :}
-            |   PR_Exact Identificador PuntoComa
+            |   PR_Exact:t Identificador:i PuntoComa:e
+                {:
+                   ObtenDatos((eright+1),t.toString(), i.toString(), null);
+                :}
 
             |   ERRORES Identificador PuntoComa
             |   PR_Exact ERRORES PuntoComa
@@ -281,7 +284,10 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
 
-            |   PR_Word Identificador OpAsig Cadena_texto PuntoComa
+            |   PR_Word:t Identificador:i OpAsig Cadena_texto:v PuntoComa :e
+                {:
+                   ObtenDatos((eright+1),t.toString(), i.toString(), v.toString());
+                :}
 
             |   ERRORES Identificador OpAsig Cadena_texto PuntoComa
             |   PR_Word ERRORES OpAsig Cadena_texto PuntoComa
@@ -341,7 +347,10 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
-            |   PR_Part Identificador OpAsig Numero_Part PuntoComa
+            |   PR_Part:t Identificador:i OpAsig Numero_Part:v PuntoComa:e
+                {:
+                   ObtenDatos((eright+1),t.toString(), i.toString(), v);
+                :}
 
             |   ERRORES Identificador OpAsig Numero_Part PuntoComa
             |   PR_Part ERRORES OpAsig Numero_Part PuntoComa
@@ -365,7 +374,10 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';'. \n";
                 :}
-            |   PR_Part Identificador PuntoComa
+            |   PR_Part:t Identificador:i PuntoComa:e
+                {:
+                   ObtenDatos((eright+1),t.toString(), i.toString(), null);
+                :}
 
             |   PR_Part ERRORES PuntoComa
 
@@ -377,7 +389,14 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
-            |   PR_Flag Identificador OpAsig BOOLEAN PuntoComa
+            |   PR_Flag:t Identificador:i OpAsig PR_True:v PuntoComa:e
+                {:
+                   ObtenDatos((eright+1),t.toString(), i.toString(), v);
+                :}
+            |   PR_Flag:t Identificador:i OpAsig PR_False:v PuntoComa:e
+                {:
+                   ObtenDatos((eright+1),t.toString(), i.toString(), v);
+                :}
 
             |   ERRORES Identificador OpAsig BOOLEAN PuntoComa
             |   PR_Flag ERRORES OpAsig BOOLEAN PuntoComa
@@ -409,7 +428,10 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
-            |   PR_Flag Identificador PuntoComa
+            |   PR_Flag:t Identificador:i PuntoComa:e
+                {:
+                   ObtenDatos((eright+1),t.toString(), i.toString(), null);
+                :}
 
             |   PR_Flag ERRORES PuntoComa
 
@@ -450,6 +472,10 @@ NUMERO  ::= Numero_Part
         |   Numero_Exact
 ;
 ASIGNACION  ::= Identificador OpAsig SALIDA PuntoComa
+                {:
+                    
+                :}
+
             |   Identificador OpAsig ARITMETICAS PuntoComa
             |   ERRORES OpAsig SALIDA PuntoComa
             |   ERRORES OpAsig NUMERO PuntoComa
