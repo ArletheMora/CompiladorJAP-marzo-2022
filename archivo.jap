@@ -1,7 +1,8 @@
 class caminar {
  def void main(){
+	exact grado;
 	
-	exact cont = 5;
+	flag v = true;
  }
 
 }**Fin class

@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/CompiladorJAP_2022/src/compilador/Sintax.cup</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/CompiladorJAP_2022/src/compilador/Sintax.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/CompiladorJAP_2022/src/compilador/Identificador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/CompiladorJAP_2022/src/compilador/IDE.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/CompiladorJAP_2022/src/compilador/Principal.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/CompiladorJAP_2022/src/compilador/Lexer.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/CompiladorJAP_2022/src/compilador/TablaSimbolos.java</file>
+        </group>
     </open-files>
 </project-private>

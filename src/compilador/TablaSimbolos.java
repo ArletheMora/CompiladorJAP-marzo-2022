@@ -79,6 +79,17 @@ public class TablaSimbolos {
             }
         }
     }
+    
+    public void asignaValor(String t, Object valor) {
+        if (this.ListaTokens.isEmpty()) {
+            return;
+        }
+        for (int l = 0; l < ListaTokens.size(); l++) {
+            if (ListaTokens.get(l).getLexema().equals(t)) {
+                ListaTokens.get(l).setValor(valor);
+            }
+        }
+    }
 
     public void ObtenDatos() {
         for (int i = 0; i < ListaTokens.size(); i++) {

@@ -1,6 +1,7 @@
 package compilador;
 
 public class Identificador implements Comparable<Identificador> {
+
     private int linea;
     private String lexema;
     private String tipoDato;
@@ -11,6 +12,13 @@ public class Identificador implements Comparable<Identificador> {
         this.lexema = lexema;
         this.tipoDato = tipoDato;
         this.valor = valor;
+    }
+
+    public Identificador(int linea_declaracion, String lexema) {
+        this.linea = linea_declaracion;
+        this.lexema = lexema;
+        this.tipoDato = "";
+        this.valor = null;
     }
 
     public int getLinea() {
@@ -49,5 +57,5 @@ public class Identificador implements Comparable<Identificador> {
     public int compareTo(Identificador o) {
         return this.getLexema().compareTo(o.getLexema());
     }
-    
+
 }

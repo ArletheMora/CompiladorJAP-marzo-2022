@@ -23,7 +23,6 @@ import javax.swing.table.DefaultTableModel;
 public class IDE extends javax.swing.JFrame {
     
     public static TablaSimbolos tablaSimbolos_id;
-    public static TablaSimbolos tablaSimbolosS_id;
     
     NumeroLinea numeroLinea;
     Directorio dir;
@@ -280,6 +279,7 @@ public class IDE extends javax.swing.JFrame {
     
     public void analizadorLexico() {
         //limpiar tabla
+        //tablaSimbolosS_id = new TablaSimbolos();
 
         m = (DefaultTableModel) tblSimb.getModel();
         txtConsola.setText("");
@@ -320,22 +320,7 @@ public class IDE extends javax.swing.JFrame {
                         //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, tokens});
                         break;
                     case Identificador:
-                        if (id.size() == 0) {
-                            id.add(lexer.lexeme);
-                        } else {
-                            for (int i = 0; i < id.size(); i++) {
-                                if (id.get(i).equals(lexer.lexeme)) {
-                                    a = 1;
-                                    break;
-                                } else {
-                                    a = 0;
-                                }
-                            }//fin for
-                            if (a == 0) {
-                                id.add(lexer.lexeme);
-                            }
-                        }
-
+                        tablaSimbolos_id.addToken(new Identificador(lexer.yyline, lexer.lexeme));
                         break;
                     case ERROR1:
                         //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, no se puede tener más de un símbolo "});
