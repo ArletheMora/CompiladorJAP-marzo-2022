@@ -20,23 +20,21 @@ import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author arlet
- */
 public class IDE extends javax.swing.JFrame {
-
+    
+    public static TablaSimbolos tablaSimbolos_id;
+    public static TablaSimbolos tablaSimbolosS_id;
+    
     NumeroLinea numeroLinea;
     Directorio dir;
     String errores = "";
 
-    /**
-     * Creates new form IDE
-     */
+  
     public IDE() {
         initComponents();
         inicializar();
         this.setLocationRelativeTo(null);
+        tablaSimbolos_id = new TablaSimbolos();
     }
 
     /**
@@ -414,6 +412,7 @@ public class IDE extends javax.swing.JFrame {
             txtConsola.setText("Analisis Sintatico realizado correctamente \n");
             txtConsola.setForeground(new Color(25, 111, 61));
         }
+        tablaSimbolos_id.ObtenDatos();
     }//GEN-LAST:event_bntCompilarActionPerformed
 
     public void analizadorSint() {

@@ -41,10 +41,10 @@ parser code{:
 :};
 
 action code{:
-    public void ObtenDatos(int fila, String tipoDato, String identificador, Object valor){
+    /*public void ObtenDatos(int fila, String tipoDato, String identificador, Object valor){
         IDE.m.addRow(new Object[]{fila, identificador, tipoDato, valor});
         System.out.println("Tipo: "+tipoDato + " Identificador: "+identificador+" Valor: "+valor);
-    }
+    }*/
 :};
 
 terminal PR_Catch,
@@ -232,7 +232,9 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
 
 DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
-                   ObtenDatos((eright+1),t.toString(), i.toString(), v);
+                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
+                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
+                    }
                 :}
 
             |   ERRORES Identificador OpAsig  Numero_Exact PuntoComa
