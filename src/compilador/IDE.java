@@ -92,11 +92,11 @@ public class IDE extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Línea", "Columna", "Lexema", "Tipo", "Valor"
+                "Línea", "Lexema", "Tipo", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -108,9 +108,6 @@ public class IDE extends javax.swing.JFrame {
             tblSimb.getColumnModel().getColumn(0).setMinWidth(50);
             tblSimb.getColumnModel().getColumn(0).setPreferredWidth(50);
             tblSimb.getColumnModel().getColumn(0).setMaxWidth(50);
-            tblSimb.getColumnModel().getColumn(1).setMinWidth(50);
-            tblSimb.getColumnModel().getColumn(1).setPreferredWidth(50);
-            tblSimb.getColumnModel().getColumn(1).setMaxWidth(50);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -282,7 +279,8 @@ public class IDE extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnalizadorLexicoActionPerformed
     public static DefaultTableModel m;
     public static Lexer lexer;
-    public void analizadorLexico(){
+    
+    public void analizadorLexico() {
         //limpiar tabla
 
         m = (DefaultTableModel) tblSimb.getModel();
@@ -326,8 +324,6 @@ public class IDE extends javax.swing.JFrame {
                     case Identificador:
                         if (id.size() == 0) {
                             id.add(lexer.lexeme);
-                            m.setValueAt(lexer.yyline, 0, 0);
-                            System.out.println(id.get(0)+"");
                         } else {
                             for (int i = 0; i < id.size(); i++) {
                                 if (id.get(i).equals(lexer.lexeme)) {
@@ -341,7 +337,7 @@ public class IDE extends javax.swing.JFrame {
                                 id.add(lexer.lexeme);
                             }
                         }
-                       
+
                         break;
                     case ERROR1:
                         //m.addRow(new Object[]{lexer.yyline + 1, lexer.yycolumn + 1, lexer.lexeme, "Número invalido, no se puede tener más de un símbolo "});
@@ -411,28 +407,29 @@ public class IDE extends javax.swing.JFrame {
         analizadorLexico();
         analizadorSint();
         todosErrores = errores + erroresSint;
-        if (!todosErrores.equals("")){
+        if (!todosErrores.equals("")) {
             txtConsola.setText(todosErrores);
-            txtConsola.setForeground(new Color(255,0,0));
-        }else{
+            txtConsola.setForeground(new Color(255, 0, 0));
+        } else {
             txtConsola.setText("Analisis Sintatico realizado correctamente \n");
             txtConsola.setForeground(new Color(25, 111, 61));
         }
     }//GEN-LAST:event_bntCompilarActionPerformed
 
-    public void analizadorSint(){
-        
+    public void analizadorSint() {
+
         String ST = txtAreaCod.getText();
         Sintax s = new Sintax(new LexerCup(new StringReader(ST)));
-        
+
         s.rstError();
         try {
             s.parse();
             erroresSint = s.getError();
         } catch (Exception ex) {
-            System.out.println("Error: "+ex);
+            System.out.println("Error: " + ex);
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -481,7 +478,7 @@ public class IDE extends javax.swing.JFrame {
     public static ArrayList<Object> id = new ArrayList<>();
     public static String erroresSint = "";
     public static String todosErrores = "";
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem bntCompilar;
     private javax.swing.JMenuItem bntNuevo;

@@ -41,8 +41,8 @@ parser code{:
 :};
 
 action code{:
-    public void ObtenDatos(String tipoDato, String identificador, Object valor){
-        IDE.m.addRow(new Object[]{0, 0, identificador, tipoDato, valor});
+    public void ObtenDatos(int fila, String tipoDato, String identificador, Object valor){
+        IDE.m.addRow(new Object[]{fila, identificador, tipoDato, valor});
         System.out.println("Tipo: "+tipoDato + " Identificador: "+identificador+" Valor: "+valor);
     }
 :};
@@ -230,9 +230,9 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
             |   METODOS_DEF | METODOS_DEF SENTENCIA
 ;
 
-DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa
+DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
-                   ObtenDatos(t.toString(), i.toString(), v);
+                   ObtenDatos((eright+1)t.toString(), i.toString(), v);
                 :}
 
             |   ERRORES Identificador OpAsig  Numero_Exact PuntoComa
@@ -265,7 +265,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa
                 :}
             |   PR_Exact Identificador OpAsig Cadena_texto:e PuntoComa
                 {:
-                    this.parser.errores += "Error semántico 5. Línea: "+ (eright + 1) + " Tipo de dato incompatible. Se esperaba un número exact y se encontró una cadena de texto. \n"
+                    this.parser.errores += "Error semántico 5. Línea: "+ (eright + 1) + " Tipo de dato incompatible. Se esperaba un número exact y se encontró una cadena de texto. \n";
                 :}
             |   PR_Exact Identificador PuntoComa
 
