@@ -42,7 +42,7 @@ parser code{:
 
 action code{:
     public void ObtenDatos(String tipoDato, String identificador, Object valor){
-        IDE.m.addRow(new Object[]{IDE.lexer.yyline + 1, IDE.lexer.yycolumn + 1, identificador, tipoDato, valor});
+        IDE.m.addRow(new Object[]{0, 0, identificador, tipoDato, valor});
         System.out.println("Tipo: "+tipoDato + " Identificador: "+identificador+" Valor: "+valor);
     }
 :};
@@ -63,7 +63,6 @@ terminal PR_Catch,
      PR_Main,
      PR_Option,
      PR_Part,
-     PR_Stop,
      PR_Try,
      PR_Switch,
      PR_Void,
@@ -105,6 +104,20 @@ terminal PR_Catch,
      SimbEsp_Coma,
      SimbEsp_DosPuntos,
      Simbolo_Especial,
+    PR_Stop,
+     PR_Sleep,
+     PR_Filamenttype,
+     PR_Setfilamenttype,
+     PR_Getextrusorx,
+     PR_Getextrusory,
+     PR_Getextrusorz,
+     PR_Setextrusorx,
+     PR_Setextrusory,
+     PR_Setextrusorz,
+     PR_Draw,
+     PR_Fill,
+     PR_Home,
+     PR_Port,
      ERROR1,
      ERROR2,
      ERROR3,
@@ -249,6 +262,10 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa
             |   PR_Exact Identificador OpAsig Numero_Part:e PuntoComa
                 {:
                     this.parser.errores += "Error semántico 1. Línea: "+ (eright + 1) + " Tipo de dato incompatible. Se esperaba un número exact y se encontró uno part. \n";
+                :}
+            |   PR_Exact Identificador OpAsig Cadena_texto:e PuntoComa
+                {:
+                    this.parser.errores += "Error semántico 5. Línea: "+ (eright + 1) + " Tipo de dato incompatible. Se esperaba un número exact y se encontró una cadena de texto. \n"
                 :}
             |   PR_Exact Identificador PuntoComa
 

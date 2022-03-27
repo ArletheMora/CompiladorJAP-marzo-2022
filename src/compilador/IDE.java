@@ -325,7 +325,8 @@ public class IDE extends javax.swing.JFrame {
                         break;
                     case Identificador:
                         if (id.size() == 0) {
-                            id.add(new Object[]{lexer.yyline+1,lexer.yycolumn+1,lexer.lexeme});
+                            id.add(lexer.lexeme);
+                            m.setValueAt(lexer.yyline, 0, 0);
                             System.out.println(id.get(0)+"");
                         } else {
                             for (int i = 0; i < id.size(); i++) {

@@ -43,6 +43,22 @@ cadena_texto = (\')~(\')
 ("word") {lexeme=yytext(); return PR_Word;}
 ("return") {lexeme=yytext(); return PR_Return;}
 
+/*aqui se agregaron nueva palabras reservadas*/
+("stop") {lexeme=yytext(); return PR_Stop;} /*detiene impresion*/   
+("sleep") {lexeme=yytext(); return PR_Sleep;}/*para momentaneamente*/
+("filamenttype") {lexeme=yytext(); return PR_Filamenttype;}/*asigna tipo de filamento*/
+("setfilamenttype") {lexeme=yytext(); return PR_Setfilamenttype;}/*Cambia el material del filamento.*/
+("getextrusorx") {lexeme=yytext(); return PR_Getextrusorx;} /*estas toman las coordenadas x, y, z del extrusor*/
+("getextrusory") {lexeme=yytext(); return PR_Getextrusory;}
+("getextrusorz") {lexeme=yytext(); return PR_Getextrusorz;}
+("setextrusorx") {lexeme=yytext(); return PR_Setextrusorx;} /*para cambiar coordenadas*/
+("setextrusory") {lexeme=yytext(); return PR_Setextrusory;}
+("setextrusorz") {lexeme=yytext(); return PR_Setextrusorz;}
+("draw") {lexeme=yytext(); return PR_Draw;}/*crea el contorno de una figura plana*/ 
+("fill") {lexeme=yytext(); return PR_Fill;}/*Crea una figura plana rellena*/
+("home") {lexeme=yytext(); return PR_Home;}/*Regresa el extrusor a posicion inicial*/
+("port") {lexeme=yytext(); return PR_Port;}/*Asigna el número de puerto de la impresora que se usará*/
+
 /* Coma */
 {C} {lexeme=yytext(); return SimbEsp_Coma;}
 

@@ -54,6 +54,21 @@ espacio = {LineTerminator} | [ \t\f]
 ("word") {return new Symbol(sym.PR_Word, yychar, yyline, yytext());}
 ("return") {return new Symbol(sym.PR_Return, yychar, yyline, yytext());}
 
+("stop") {return new Symbol(sym.PR_Stop, yychar, yyline, yytext());}
+("sleep") {return new Symbol(sym.PR_Sleep, yychar, yyline, yytext());}
+("filamenttype") {return new Symbol(sym.PR_Filamenttype, yychar, yyline, yytext());}
+("setfilamenttype") {return new Symbol(sym.PR_Setfilamenttype, yychar, yyline, yytext());}
+("getextrusorx") {return new Symbol(sym.PR_Getextrusorx, yychar, yyline, yytext());}
+("getextrusory") {return new Symbol(sym.PR_Getextrusory, yychar, yyline, yytext());}
+("getextrusorz") {return new Symbol(sym.PR_Getextrusorz, yychar, yyline, yytext());}
+("setextrusorx") {return new Symbol(sym.PR_Setextrusorx, yychar, yyline, yytext());}
+("setextrusory") {return new Symbol(sym.PR_Setextrusory, yychar, yyline, yytext());}
+("setextrusorz") {return new Symbol(sym.PR_Setextrusorz, yychar, yyline, yytext());}
+("draw") {return new Symbol(sym.PR_Draw, yychar, yyline, yytext());}
+("fill") {return new Symbol(sym.PR_Fill, yychar, yyline, yytext());}
+("home") {return new Symbol(sym.PR_Home, yychar, yyline, yytext());}
+("Port") {return new Symbol(sym.PR_Port, yychar, yyline, yytext());}
+
 /* Coma */
 {C} {return new Symbol(sym.SimbEsp_Coma, yychar, yyline, yytext());}
 
