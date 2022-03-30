@@ -8,7 +8,7 @@ class caminar {
 	flag f2 = false;
 	flag f3;
 	exact e2 = 2;
-	flag f3;
+	
  }
 
 }**Fin class

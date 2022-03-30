@@ -241,7 +241,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
                     }else {
-                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
                          }
                 :}
 
@@ -282,7 +282,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),null);
                     }else {
-                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
                          }
                 :}
 
@@ -303,7 +303,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
                     }else {
-                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
                          }
                 :}
 
@@ -370,7 +370,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
                     }else {
-                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
                          }
                 :}
 
@@ -401,7 +401,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),null);
                     }else {
-                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
                          }
                 :}
 
@@ -420,7 +420,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
                     }else {
-                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
                          }
                 :}
             |   PR_Flag:t Identificador:i OpAsig PR_False:v PuntoComa:e
@@ -428,7 +428,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
                     }else {
-                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
                          }
                 :}
 
@@ -467,7 +467,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(), null);
                     }else {
-                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
                          }
                 :}
 
