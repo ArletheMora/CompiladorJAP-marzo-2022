@@ -17,7 +17,7 @@ public class Identificador implements Comparable<Identificador> {
     public Identificador(int linea_declaracion, String lexema) {
         this.linea = linea_declaracion;
         this.lexema = lexema;
-        this.tipoDato = "";
+        this.tipoDato = null;
         this.valor = null;
     }
 

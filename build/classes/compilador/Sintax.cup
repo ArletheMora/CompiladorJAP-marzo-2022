@@ -236,9 +236,13 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
 
 DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
-                    }
+                    
+                    //Si es nulo, devuelvo un error
+                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                         }
                 :}
 
             |   ERRORES Identificador OpAsig  Numero_Exact PuntoComa
@@ -275,9 +279,11 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 :}
             |   PR_Exact:t Identificador:i PuntoComa:e
                 {:
-                   if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),null);
-                    }/* Aqui se agrega un tipo de dato al identificador dentro de la tabla de identificadores*/
+                   if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),null);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                         }
                 :}
 
             |   ERRORES Identificador PuntoComa
@@ -294,9 +300,11 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
 
             |   PR_Word:t Identificador:i OpAsig Cadena_texto:v PuntoComa :e
                 {:
-                   if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v.toString());
-                    }
+                   if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                         }
                 :}
 
             |   ERRORES Identificador OpAsig Cadena_texto PuntoComa
@@ -359,9 +367,11 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 :}
             |   PR_Part:t Identificador:i OpAsig Numero_Part:v PuntoComa:e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
-                    }
+                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                         }
                 :}
 
             |   ERRORES Identificador OpAsig Numero_Part PuntoComa
@@ -388,9 +398,11 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 :}
             |   PR_Part:t Identificador:i PuntoComa:e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),null);
-                    }
+                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),null);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                         }
                 :}
 
             |   PR_Part ERRORES PuntoComa
@@ -405,15 +417,19 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 :}
             |   PR_Flag:t Identificador:i OpAsig PR_True:v PuntoComa:e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
-                    }
+                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                         }
                 :}
             |   PR_Flag:t Identificador:i OpAsig PR_False:v PuntoComa:e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
-                    }
+                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                         }
                 :}
 
             |   ERRORES Identificador OpAsig BOOLEAN PuntoComa
@@ -446,11 +462,13 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
-            |   PR_Flag:t Identificador:i PuntoComa
+            |   PR_Flag:t Identificador:i PuntoComa:e
                 {:
-                   if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),null);
-                    }
+                   if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(), null);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " Variable ya definida \n";
+                         }
                 :}
 
             |   PR_Flag ERRORES PuntoComa

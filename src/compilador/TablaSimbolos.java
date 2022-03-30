@@ -90,6 +90,19 @@ public class TablaSimbolos {
             }
         }
     }
+    /*
+        Para ver si ya ha sido asignado el tipo del identificador
+    */
+    public String buscaTipo(String t){
+        for (int i = 0; i < ListaTokens.size(); i++) {
+            if (ListaTokens.get(i).getLexema().equals(t)) {
+                if(ListaTokens.get(i).getTipoDato() != null){
+                    return ListaTokens.get(i).getTipoDato();
+                }
+            }
+        }
+        return null;
+    }
 
     public void ObtenDatos() {
         for (int i = 0; i < ListaTokens.size(); i++) {

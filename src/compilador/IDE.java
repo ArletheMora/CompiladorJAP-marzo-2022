@@ -387,6 +387,7 @@ public class IDE extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAreaCodKeyReleased
 
     private void bntCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCompilarActionPerformed
+        tablaSimbolos_id.ListaTokens.clear();
         analizadorLexico();
         analizadorSint();
         todosErrores = errores + erroresSint;
