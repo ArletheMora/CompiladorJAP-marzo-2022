@@ -353,7 +353,14 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
                     this.parser.errores += "Error semántico 4. Línea: "+ (eright + 1) + " Tipo de dato incompatible. Se esperaba una cadena y se encontró valor booleano. \n";
                 :}
-            |   PR_Word Identificador PuntoComa
+            |   PR_Word:t Identificador:i PuntoComa :e
+                {:
+                    if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
+                            IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),null);
+                    }else {
+                           this.parser.errores += "Error semántico 6. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' ya está definido \n";
+                         }
+                :}
 
             |   PR_Word ERRORES PuntoComa
 
@@ -552,7 +559,7 @@ ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                         if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
                         }
-                        IDE.tablaSimbolos_id.asignaValor(i.toString(), v.toString());
+                        IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                     }
                 :}
 
