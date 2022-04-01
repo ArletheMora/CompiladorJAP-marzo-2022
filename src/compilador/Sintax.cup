@@ -515,51 +515,66 @@ OP_ARITMETICO   ::= OpAritm_Suma
 ;
 ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) { 
+                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){ //si no tiene tipo
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
+                        }else if(!IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact") ){ //si no es del mismo tipo
+                             this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
+                        }else{
+                            IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                         }
-                        IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                     }
                 :}
                 
             |   Identificador:i OpAsig Numero_Part:v PuntoComa :e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) { 
+                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){ //si no tiene tipo
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
+                        }else if(!IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("part") ){ //si no es del mismo tipo
+                             this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
+                        }else{
+                            IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                         }
-                        IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                     }
                 :}
 
             |   Identificador:i OpAsig PR_False:v PuntoComa :e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) { 
+                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){ //si no tiene tipo
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
+                        }else if(!IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("flag") ){ //si no es del mismo tipo
+                             this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
+                        }else{
+                            IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                         }
-                        IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                     }
                 :}
 
             |   Identificador:i OpAsig PR_True:v PuntoComa :e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) { 
+                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){ //si no tiene tipo
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
+                        }else if(!IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("flag") ){ //si no es del mismo tipo
+                             this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
+                        }else{
+                            IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                         }
-                        IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                     }
                 :}
 
             |   Identificador:i OpAsig Cadena_texto:v PuntoComa :e
                 {:
-                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
-                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                    if (IDE.tablaSimbolos_id.buscarToken(i.toString())) { 
+                        if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){ //si no tiene tipo
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
+                        }else if(!IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("word") ){ //si no es del mismo tipo
+                             this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
+                        }else{
+                            IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                         }
-                        IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
                     }
                 :}
 
@@ -852,7 +867,15 @@ FOR ::= PR_For OpAgrup_ParApert PR_Exact Identificador OpAsig Numero_Exact Punto
             this.parser.errores += "Error sintáctico 81. Línea: "+ (eright + 1) + " Se esperaba una '}' al final de la SENTENCIA del ciclo FOR. \n";
         :}
 ;
-SENTENCIA_BOOLEANA  ::= Identificador OP_REL Identificador
+SENTENCIA_BOOLEANA  ::= Identificador:i OP_REL Identificador:o
+                        {:
+                            if (IDE.tablaSimbolos_id.buscarToken(i.toString()) && IDE.tablaSimbolos_id.buscarToken(o.toString())) {
+                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals(IDE.tablaSimbolos_id.buscaTipo(o.toString()))){
+                                }else {
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
+                                }
+                            }
+                        :}
                     |   ERRORES OP_REL Identificador
                     |   Identificador OP_REL ERRORES
                     |   ERRORES OP_REL ERRORES

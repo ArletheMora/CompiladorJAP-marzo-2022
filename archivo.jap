@@ -1,8 +1,20 @@
 class caminar {
  def void main(){
-	exact grado;
-	grado = 'olas';
-	flag v = true;
+	exact grado = 5;
+	word t = 'hola';
+	exact e2 = 2;
+	part part1 = 3.2;
+	part part2;
+	flag f1 = true;
+	flag f2 = false;
+	flag f3;
+	
+	f2 = 2;
+
+	if(e2 >= grado){
+		e2=5;
+		}
+	
  }
 
 }**Fin class
