@@ -1,14 +1,8 @@
 class caminar {
  def void main(){
-	exact grado = 5;
-	exact e2 = 2;
-	part part1 = 3.2;
-	part part2;
-	flag f1 = true;
-	flag f2 = false;
-	flag f3;
-	exact e2 = 2;
-	
+	exact grado;
+	pedro = 5;
+	flag v = true;
  }
 
 }**Fin class
