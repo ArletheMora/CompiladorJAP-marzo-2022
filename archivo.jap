@@ -9,9 +9,9 @@ class caminar {
 	flag f2 = false;
 	flag f3;
 	
-	f2 = 2;
+	t = 2;
 
-	if(e2 >= grado){
+	if(e2 >= y){
 		e2=5;
 		}
 	

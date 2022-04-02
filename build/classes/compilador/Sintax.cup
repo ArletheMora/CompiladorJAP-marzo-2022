@@ -122,7 +122,11 @@ terminal PR_Catch,
      ERROR2,
      ERROR3,
      ERROR4,
-     ERROR5
+     ERROR5,
+     STOP,
+     SLEEP,
+     SETFILAMENT,
+     HOME
 ;
 non terminal INICIO, 
              SENTENCIA,
@@ -235,8 +239,7 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
 ;
 
 DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
-                {:
-                    
+                {:                   
                     //Si es nulo, devuelvo un error
                     if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null) {
                             IDE.tablaSimbolos_id.ubicarToken(i.toString(),t.toString(),v);
@@ -488,6 +491,136 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
+            |   PR_Exact PR_Part Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida 'exact' incorrecto. \n";
+                :}
+            |   PR_Exact PR_Flag Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'exact' incorrecto . \n";
+                :}
+            |   PR_Exact PR_Word Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'exact' incorrecto . \n";
+                :}
+            |   PR_Exact PR_Exact Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'exact' incorrecto . \n";
+                :}
+            |   PR_Part PR_Part Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida 'part' incorrecto. \n";
+                :}
+            |   PR_Part PR_Flag Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'part' incorrecto . \n";
+                :}
+            |   PR_Part PR_Word Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'part' incorrecto . \n";
+                :}
+            |   PR_Part PR_Exact Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'part' incorrecto . \n";
+                :}    
+            |   PR_Flag PR_Part Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida 'flag' incorrecto. \n";
+                :}
+            |   PR_Flag PR_Flag Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'flag' incorrecto . \n";
+                :}
+            |   PR_Flag PR_Word Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'flag' incorrecto . \n";
+                :}
+            |   PR_Flag PR_Exact Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'flag' incorrecto . \n";
+                :}
+            |   PR_Word PR_Part Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida 'word' incorrecto. \n";
+                :}
+            |   PR_Word PR_Flag Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'word' incorrecto . \n";
+                :}
+            |   PR_Word PR_Word Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'word' incorrecto . \n";
+                :}
+            |   PR_Word PR_Exact Identificador OpAsig Numero_Exact PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'word' incorrecto . \n";
+                :}
+
+
+            |   PR_Exact PR_Part Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida 'exact' incorrecto. \n";
+                :}
+            |   PR_Exact PR_Flag Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'exact' incorrecto . \n";
+                :}
+            |   PR_Exact PR_Word Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'exact' incorrecto . \n";
+                :}
+            |   PR_Exact PR_Exact Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'exact' incorrecto . \n";
+                :}
+            |   PR_Part PR_Part Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida 'part' incorrecto. \n";
+                :}
+            |   PR_Part PR_Flag Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'part' incorrecto . \n";
+                :}
+            |   PR_Part PR_Word Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'part' incorrecto . \n";
+                :}
+            |   PR_Part PR_Exact Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'part' incorrecto . \n";
+                :}    
+            |   PR_Flag PR_Part Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida 'flag' incorrecto. \n";
+                :}
+            |   PR_Flag PR_Flag Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'flag' incorrecto . \n";
+                :}
+            |   PR_Flag PR_Word Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'flag' incorrecto . \n";
+                :}
+            |   PR_Flag PR_Exact Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'flag' incorrecto . \n";
+                :}
+            |   PR_Word PR_Part Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida 'word' incorrecto. \n";
+                :}
+            |   PR_Word PR_Flag Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'word' incorrecto . \n";
+                :}
+            |   PR_Word PR_Word Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'word' incorrecto . \n";
+                :}
+            |   PR_Word PR_Exact Identificador PuntoComa :e
+                {:
+                    this.parser.errores += "Error semantico 8. Línea: "+ (eright + 1) + " Declaracion de identificador invalida, 'word' incorrecto . \n";
+                :}            
 ;
 
 ARITMETICAS ::= NUMERO
@@ -870,9 +1003,13 @@ FOR ::= PR_For OpAgrup_ParApert PR_Exact Identificador OpAsig Numero_Exact Punto
 SENTENCIA_BOOLEANA  ::= Identificador:i OP_REL Identificador:o
                         {:
                             if (IDE.tablaSimbolos_id.buscarToken(i.toString()) && IDE.tablaSimbolos_id.buscarToken(o.toString())) {
-                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals(IDE.tablaSimbolos_id.buscaTipo(o.toString()))){
-                                }else {
-                                    this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
+                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                                        this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
+                                }else if(IDE.tablaSimbolos_id.buscaTipo(o.toString()) == null){
+                                        this.parser.errores += "Error semantico 7. Línea: "+ (oright + 1) + " El identificador '"+ (o.toString())+"' no está definido \n";
+                                }
+                                else if (!IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals(IDE.tablaSimbolos_id.buscaTipo(o.toString()))){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (oright + 1) + " Los identificadores no son compatibles. \n"; 
                                 }
                             }
                         :}
@@ -1563,6 +1700,67 @@ TIPO_DATO   ::= PR_Exact
             |   PR_Part 
             |   PR_Word 
             |   PR_Flag
+;
+
+STOP        ::= PR_Stop OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
+            |   PR_Stop OpAgrup_ParApert OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+            |   PR_Stop OpAgrup_ParApert error:e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+            |   PR_Stop :e OpAgrup_ParCierre  PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
+;
+SLEEP       ::= PR_Sleep OpAgrup_ParApert OpAgrup_ParCierre PuntoComa 
+            |   PR_Sleep OpAgrup_ParApert OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+            |   PR_Sleep OpAgrup_ParApert error:e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+            |   PR_Sleep :e OpAgrup_ParCierre  PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
+;
+SETFILAMENT::= PR_Setfilamenttype OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre PuntoComa 
+            |   PR_Setfilamenttype OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+            |   PR_Setfilamenttype OpAgrup_ParApert Cadena_texto :e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+            |   PR_Setfilamenttype OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperabancadena de texto entre los parectesis. \n";
+                :}
+            |   PR_Setfilamenttype :e Cadena_texto OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
+;
+HOME        ::= PR_Home OpAgrup_ParApert OpAgrup_ParCierre PuntoComa 
+            |   PR_Home OpAgrup_ParApert OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+            |   PR_Home OpAgrup_ParApert error:e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+            |   PR_Home :e OpAgrup_ParCierre  PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
 ;
 ERRORES ::= ERROR1
         |   ERROR2
