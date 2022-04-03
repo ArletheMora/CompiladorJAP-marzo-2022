@@ -802,8 +802,11 @@ FUNCION_SALIDA  ::= PR_Imp OpAgrup_ParApert CONCATENACION OpAgrup_ParCierre Punt
 ;
 CONCATENACION   ::= SALIDA 
                 |   SALIDA OpAritm_Suma CONCATENACION
+                    {:
+
+                    :}
                 |   NUMERO OpAritm_Suma CONCATENACION
-                |   Identificador OpAritm_Suma CONCATENACION
+                |   Identificador:i OpAritm_Suma CONCATENACION:e
                 |   SALIDA ERRORES CONCATENACION
                 |   ERRORES ERRORES CONCATENACION
                 |   SALIDA OpAritm_Suma :e
@@ -863,7 +866,10 @@ IF_ELSE ::= IF PR_Else  OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
                 this.parser.errores += "Error sintáctico 25.  Linea: "+ (eright + 1) +  ". Se esperaba sentencia dentro de else.  \n";
             :}           
 ;
-FOR ::= PR_For OpAgrup_ParApert PR_Exact Identificador OpAsig Numero_Exact PuntoComa Identificador OP_REL Numero_Exact PuntoComa Identificador OP_INCREMENTOS OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
+FOR ::= PR_For OpAgrup_ParApert PR_Exact Identificador:i OpAsig Numero_Exact PuntoComa Identificador OP_REL Numero_Exact PuntoComa Identificador OP_INCREMENTOS OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
+            {:
+                //
+            :}
     |   ERRORES OpAgrup_ParApert PR_Exact Identificador OpAsig Numero_Exact PuntoComa Identificador OP_REL Numero_Exact PuntoComa Identificador OP_INCREMENTOS OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
     |   PR_For OpAgrup_ParApert ERRORES Identificador OpAsig Numero_Exact PuntoComa Identificador OP_REL Numero_Exact PuntoComa Identificador OP_INCREMENTOS OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
     |   PR_For OpAgrup_ParApert PR_Exact ERRORES OpAsig Numero_Exact PuntoComa Identificador OP_REL Numero_Exact PuntoComa Identificador OP_INCREMENTOS OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
@@ -1758,6 +1764,52 @@ HOME        ::= PR_Home OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
                     this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
                 :}
             |   PR_Home :e OpAgrup_ParCierre  PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
+;
+PRINTERPORT ::= PR_Port OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
+                |   PR_Port OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+                |   PR_Port OpAgrup_ParApert Numero_Exact :e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+                |   PR_Port OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 124. Linea: "+ (eright + 1) + ". Se esperaba un numero 'Exact' entre los parentesis. \n";
+                :}
+                |   PR_Port :e Numero_Exact OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
+;
+GETEXTRUSORX ::= PR_Getextrusorx OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
+                |   PR_Getextrusorx OpAgrup_ParApert OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+                |   PR_Getextrusorx OpAgrup_ParApert :e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+                |   PR_Getextrusorx :e OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
+;   
+GETEXTRUSORY ::= PR_Getextrusory OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
+                |   PR_Getextrusory OpAgrup_ParApert OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+                |   PR_Getextrusory OpAgrup_ParApert :e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+                |   PR_Getextrusory :e OpAgrup_ParCierre PuntoComa
                 {:
                     this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
                 :}

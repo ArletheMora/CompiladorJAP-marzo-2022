@@ -13,6 +13,7 @@ class caminar {
 
 	if(e2 >= y){
 		e2=5;
+		t = t + 'a'
 		}
 	
  }
