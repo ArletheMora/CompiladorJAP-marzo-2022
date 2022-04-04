@@ -1030,9 +1030,10 @@ SENTENCIA_BOOLEANA  ::= Identificador:i OP_REL Identificador:o
                                         this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
                                 }else if(IDE.tablaSimbolos_id.buscaTipo(o.toString()) == null){
                                         this.parser.errores += "Error semantico 7. Línea: "+ (oright + 1) + " El identificador '"+ (o.toString())+"' no está definido \n";
-                                }
-                                else if (!IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals(IDE.tablaSimbolos_id.buscaTipo(o.toString()))){
-                                    this.parser.errores += "Error semantico 10. Línea: "+ (oright + 1) + " Los identificadores no son compatibles. \n"; 
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("part") || IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact"))){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (oright + 1) + " Los identificadores no son compatibles. Revise el primer identificador \n"; 
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(o.toString()).equals("part") || IDE.tablaSimbolos_id.buscaTipo(o.toString()).equals("exact"))){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (oright + 1) + " Los identificadores no son compatibles. Revise el segundo identificador\n"; 
                                 }
                             }
                         :}
