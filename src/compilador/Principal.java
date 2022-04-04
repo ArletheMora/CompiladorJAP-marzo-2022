@@ -45,7 +45,7 @@ public class Principal {
                 Paths.get("D:/Principales/Documentos/ITTEPIC/8 Octavo/Autómatas II/Compilador 2/CompiladorJAP-marzo-2022/sym.java"),
                 Paths.get("D:/Principales/Documentos/ITTEPIC/8 Octavo/Autómatas II/Compilador 2/CompiladorJAP-marzo-2022/src/compilador/sym.java")
         );
-//        Path rutaSin = Path rutaSin = Paths.get("C:/Users/Juan Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas II/CompiladorJAP_2022/src/compilador/Sintax.java");
+//        Path rutaSin = Paths.get("C:/Users/Juan Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas II/CompiladorJAP_2022/src/compilador/Sintax.java");
         Path rutaSin = Paths.get("D:/Principales/Documentos/ITTEPIC/8 Octavo/Autómatas II/Compilador 2/CompiladorJAP-marzo-2022/src/compilador/Sintax.java");
         if (Files.exists(rutaSin)) {
             Files.delete(rutaSin);

@@ -11,9 +11,8 @@ class caminar {
 	
 	t = 2;
 
-	if(e2 >= y){
+	if(e2 >= 2.4){
 		e2=5;
-		t = t + 'a'
 		}
 	
  }

@@ -122,11 +122,7 @@ terminal PR_Catch,
      ERROR2,
      ERROR3,
      ERROR4,
-     ERROR5,
-     STOP,
-     SLEEP,
-     SETFILAMENT,
-     HOME
+     ERROR5
 ;
 non terminal INICIO, 
              SENTENCIA,
@@ -167,7 +163,18 @@ non terminal INICIO,
              ERRORES,
              DEFAULT,
              ARITMETICAS,
-             OP_ARITMETICO
+             OP_ARITMETICO,
+             STOP,
+             SLEEP,
+             SETFILAMENT,
+             HOME,
+             PRINTERPORT,
+             GETEXTRUSORX,
+             GETEXTRUSORY,
+             GETEXTRUSORZ,
+             FILLRECTANGULO,
+             COORDENADASR,
+             FILAMENT
 ;
 start with INICIO;
 
@@ -236,6 +243,16 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
             |   EXCEPCIONES | EXCEPCIONES SENTENCIA 
             |   ASIGNACION | ASIGNACION SENTENCIA
             |   METODOS_DEF | METODOS_DEF SENTENCIA
+            |   STOP | STOP SENTENCIA
+            |   SLEEP | SLEEP SENTENCIA
+            |   HOME  | HOME SENTENCIA
+            |   SETFILAMENT | SETFILAMENT SENTENCIA
+            |   PRINTERPORT | PRINTERPORT SENTENCIA
+            |   GETEXTRUSORX | GETEXTRUSORX SENTENCIA
+            |   GETEXTRUSORY | GETEXTRUSORY SENTENCIA
+            |   GETEXTRUSORZ | GETEXTRUSORZ SENTENCIA
+            |   FILLRECTANGULO | FILLRECTANGULO SENTENCIA
+            |   FILAMENT | FILAMENT SENTENCIA
 ;
 
 DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
@@ -1022,21 +1039,77 @@ SENTENCIA_BOOLEANA  ::= Identificador:i OP_REL Identificador:o
                     |   ERRORES OP_REL Identificador
                     |   Identificador OP_REL ERRORES
                     |   ERRORES OP_REL ERRORES
-                    |   Identificador OP_REL Numero_Exact
+                    |   Identificador:i OP_REL Numero_Exact
+                        {:
+                            if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
+                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                                        this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact") || IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("part"))){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
+                                }
+                            }
+                        :}
                     |   ERRORES OP_REL Numero_Exact
-                    |   Numero_Exact OP_REL Identificador
+                    |   Numero_Exact OP_REL Identificador:i
+                        {:
+                            if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
+                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                                        this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact") || IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("part"))){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
+                                }
+                            }
+                        :}
                     |   Numero_Exact OP_REL ERRORES
-                    |   Identificador OP_REL Numero_Part
+                    |   Identificador:i OP_REL Numero_Part
+                        {:
+                            if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
+                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                                        this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact") || IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("part"))){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
+                                }
+                            }
+                        :}
                     |   ERRORES OP_REL Numero_Part
-                    |   Numero_Part OP_REL Identificador
+                    |   Numero_Part OP_REL Identificador:i
+                        {:
+                            if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
+                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                                        this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact") || IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("part"))){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
+                                }
+                            }
+                        :}
                     |   Numero_Part OP_REL ERRORES
                     |   Numero_Exact OP_REL Numero_Exact
                     |   Numero_Exact OP_REL Numero_Part
+                    {::}
                     |   Numero_Part OP_REL Numero_Exact
+                    {::}
                     |   Numero_Part OP_REL Numero_Part
-                    |   Identificador OpRel_Igual Cadena_texto
+                    |   Identificador:i OpRel_Igual Cadena_texto
+                        {:
+                            if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
+                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                                        this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("word") )){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
+                                }
+                            }
+                        :}
                     |   ERRORES OpRel_Igual Cadena_texto
-                    |   Identificador OpRel_Diferente Cadena_texto
+                    |   Identificador:i OpRel_Diferente Cadena_texto
+                        {:
+                            if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
+                                if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
+                                        this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("word") )){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
+                                }
+                            }
+                        :}
                     |   Identificador OP_REL_MEN_MAY Cadena_texto :e
                         {:
                                 this.parser.errores += "Error sintáctico 10. Linea: "+ (eright + 1) +  ". No es posible realizar esa comparación con cadena de texto. \n";
