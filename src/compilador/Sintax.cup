@@ -17,12 +17,12 @@ parser code{:
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
         if(s.value == null)
             return;
-        append("La Cadena:" + s.value+" en la Linea: "+(s.right+1)+ " esta fuera de contexto (ERROR CRITICO SE DEBE SOLUCIONAR ANTES DE CONTINUAR, NO SE IDENTIFICO ).");
+        append("La Cadena:" + s.value+" en la Linea: "+(s.right+1)+ " está fuera de contexto (ERROR CRÍTICO SE DEBE SOLUCIONAR ANTES DE CONTINUAR, NO SE IDENTIFICÓ ).");
     }
     
     public static void append(String mensaje){
         StringBuilder me;
-        me = new StringBuilder("Error sintactico: "+" ");
+        me = new StringBuilder("Error sintáctico: "+" ");
         me.append(mensaje);
 
         errores+=mensaje+"\n\n";
@@ -1030,6 +1030,8 @@ SENTENCIA_BOOLEANA  ::= Identificador:i OP_REL Identificador:o
                                         this.parser.errores += "Error semantico 7. Línea: "+ (iright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n";
                                 }else if(IDE.tablaSimbolos_id.buscaTipo(o.toString()) == null){
                                         this.parser.errores += "Error semantico 7. Línea: "+ (oright + 1) + " El identificador '"+ (o.toString())+"' no está definido \n";
+                                }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("part") || IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact")) || IDE.tablaSimbolos_id.buscaTipo(o.toString()).equals("part") || IDE.tablaSimbolos_id.buscaTipo(o.toString()).equals("exact")){
+                                    this.parser.errores += "Error semantico 10. Línea: "+ (oright + 1) + " No se puede realizar la comparación \n"; 
                                 }else if (!(IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("part") || IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact"))){
                                     this.parser.errores += "Error semantico 10. Línea: "+ (oright + 1) + " Los identificadores no son compatibles. Revise el primer identificador \n"; 
                                 }else if (!(IDE.tablaSimbolos_id.buscaTipo(o.toString()).equals("part") || IDE.tablaSimbolos_id.buscaTipo(o.toString()).equals("exact"))){
@@ -1887,6 +1889,27 @@ GETEXTRUSORY ::= PR_Getextrusory OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
                 {:
                     this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
                 :}
+;
+FILLRECTANGULO ::= PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre PuntoComa
+                |   PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+                |   PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO :e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+                |   PR_Fillrectangulo OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 125. Linea: "+ (eright + 1) + ". Se esperaban parametros. \n";
+                :}
+;
+LISTAPARAMETRO  ::= Numero_Exact
+                |   Numero_Exact SimbEsp_Coma LISTAPARAMETRO
+                |   Numero_Exact SimbEsp_Coma :e
+                    {:
+                        this.parser.errores += "Error sintáctico 33. Línea: "+ (eright + 1) + ". Se esperaba un numero 'exact' despues del simbolo ,. \n";
+                    :}
 ;
 ERRORES ::= ERROR1
         |   ERROR2

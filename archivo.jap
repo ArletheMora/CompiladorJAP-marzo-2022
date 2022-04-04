@@ -11,10 +11,10 @@ class caminar {
 	
 	**t = 2;
 
-	if(e2 >= grado){
+	if(t >= t){
 		e2=5;
 		}
 	
  }
 
-}**Fin class
+}**Fin class5

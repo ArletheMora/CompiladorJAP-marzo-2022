@@ -55,7 +55,9 @@ cadena_texto = (\')~(\')
 ("setextrusory") {lexeme=yytext(); return PR_Setextrusory;}
 ("setextrusorz") {lexeme=yytext(); return PR_Setextrusorz;}
 ("draw") {lexeme=yytext(); return PR_Draw;}/*crea el contorno de una figura plana*/ 
-("fill") {lexeme=yytext(); return PR_Fill;}/*Crea una figura plana rellena*/
+("fillrectangulo") {lexeme=yytext(); return PR_Fillrectangulo;}/*Crea una figura plana rellena*/
+("filltriangulo") {lexeme=yytext(); return PR_Filltriangulo;}
+("fillcirculo") {lexeme=yytext(); return PR_Fillcirculo;}
 ("home") {lexeme=yytext(); return PR_Home;}/*Regresa el extrusor a posicion inicial*/
 ("port") {lexeme=yytext(); return PR_Port;}/*Asigna el número de puerto de la impresora que se usará*/
 

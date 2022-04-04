@@ -65,9 +65,11 @@ espacio = {LineTerminator} | [ \t\f]
 ("setextrusory") {return new Symbol(sym.PR_Setextrusory, yychar, yyline, yytext());}
 ("setextrusorz") {return new Symbol(sym.PR_Setextrusorz, yychar, yyline, yytext());}
 ("draw") {return new Symbol(sym.PR_Draw, yychar, yyline, yytext());}
-("fill") {return new Symbol(sym.PR_Fill, yychar, yyline, yytext());}
 ("home") {return new Symbol(sym.PR_Home, yychar, yyline, yytext());}
-("Port") {return new Symbol(sym.PR_Port, yychar, yyline, yytext());}
+("port") {return new Symbol(sym.PR_Port, yychar, yyline, yytext());}
+("fillrectangulo") {return new Symbol(sym.PR_Fillrectangulo, yychar, yyline, yytext());}/Crea una figura plana rellena/
+("filltriangulo") {return new Symbol(sym.PR_Filltriangulo, yychar, yyline, yytext());}
+("fillcirculo") {return new Symbol(sym.PR_Fillcirculo, yychar, yyline, yytext());}
 
 /* Coma */
 {C} {return new Symbol(sym.SimbEsp_Coma, yychar, yyline, yytext());}
