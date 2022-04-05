@@ -67,7 +67,7 @@ espacio = {LineTerminator} | [ \t\f]
 ("draw") {return new Symbol(sym.PR_Draw, yychar, yyline, yytext());}
 ("home") {return new Symbol(sym.PR_Home, yychar, yyline, yytext());}
 ("port") {return new Symbol(sym.PR_Port, yychar, yyline, yytext());}
-("fillrectangulo") {return new Symbol(sym.PR_Fillrectangulo, yychar, yyline, yytext());}/Crea una figura plana rellena/
+("fillrectangulo") {return new Symbol(sym.PR_Fillrectangulo, yychar, yyline, yytext());}
 ("filltriangulo") {return new Symbol(sym.PR_Filltriangulo, yychar, yyline, yytext());}
 ("fillcirculo") {return new Symbol(sym.PR_Fillcirculo, yychar, yyline, yytext());}
 

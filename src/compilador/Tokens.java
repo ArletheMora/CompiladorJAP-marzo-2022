@@ -84,7 +84,9 @@ public enum Tokens {
      PR_Setextrusory,
      PR_Setextrusorz,
      PR_Draw,
-     PR_Fill,
+     PR_Fillrectangulo,
+     PR_Filltriangulo,
+     PR_Fillcirculo,
      PR_Home,
      PR_Port,
 }

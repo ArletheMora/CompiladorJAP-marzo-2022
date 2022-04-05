@@ -9,12 +9,13 @@ class caminar {
 	flag f2 = false;
 	flag f3;
 	
-	**t = 2;
+	t = 2;
 
-	if(t >= t){
+	if(e2 >= y){
 		e2=5;
+	fillrectangulo(3,3,3);
 		}
 	
  }
 
-}**Fin class5
+}**Fin class

@@ -115,7 +115,9 @@ terminal PR_Catch,
      PR_Setextrusory,
      PR_Setextrusorz,
      PR_Draw,
-     PR_Fill,
+     PR_Fillrectangulo,
+     PR_Filltriangulo,
+     PR_Fillcirculo,
      PR_Home,
      PR_Port,
      ERROR1,
@@ -173,6 +175,7 @@ non terminal INICIO,
              GETEXTRUSORY,
              GETEXTRUSORZ,
              FILLRECTANGULO,
+             LISTAPARAMETRO,
              COORDENADASR,
              FILAMENT
 ;
@@ -1890,7 +1893,7 @@ GETEXTRUSORY ::= PR_Getextrusory OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
                     this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
                 :}
 ;
-FILLRECTANGULO ::= PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre PuntoComa
+FILLRECTANGULO  ::= PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre PuntoComa
                 |   PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre :e
                 {:
                     this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
@@ -1903,10 +1906,16 @@ FILLRECTANGULO ::= PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_Par
                 {:
                     this.parser.errores += "Error sintáctico 125. Linea: "+ (eright + 1) + ". Se esperaban parametros. \n";
                 :}
+                |   PR_Fillrectangulo :e LISTAPARAMETRO OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
 ;
 LISTAPARAMETRO  ::= Numero_Exact
+                |   ERRORES
                 |   Numero_Exact SimbEsp_Coma LISTAPARAMETRO
-                |   Numero_Exact SimbEsp_Coma :e
+                |   ERRORES SimbEsp_Coma LISTAPARAMETRO
+                |   Numero_Exact SimbEsp_Coma error:e
                     {:
                         this.parser.errores += "Error sintáctico 33. Línea: "+ (eright + 1) + ". Se esperaba un numero 'exact' despues del simbolo ,. \n";
                     :}
