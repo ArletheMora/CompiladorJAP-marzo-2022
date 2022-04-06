@@ -47,137 +47,9 @@ action code{:
     }*/
 :};
 
-terminal PR_Catch,
-     PR_Class,
-     PR_Def,
-     PR_Default,
-     PR_Else,
-     PR_Exact,
-     PR_Exeption,
-     PR_Flag,
-     PR_For,
-     PR_If,
-     PR_Ing,
-     PR_Interruption,
-     PR_Imp,
-     PR_Main,
-     PR_Option,
-     PR_Part,
-     PR_Try,
-     PR_Switch,
-     PR_Void,
-     PR_While,
-     PR_Word,
-     PR_True,
-     PR_False,
-     PR_Return,
-     OpAritm_Suma,
-     OpAritm_Resta,
-     OpAritm_Mult,
-     OpAritm_Div,
-     OpAritm_Resto,
-     OpRel_Menor,
-     OpRel_Mayor,
-     OpRel_Igual,
-     OpRel_MenorIgual,
-     OpRel_MayorIgual,
-     OpRel_Diferente,
-     Op_Incremento,
-     Op_Decremento,
-     OpLog_And,
-     OpLog_Or,
-     OpLog_Not,
-     OpAgrup_ParApert,
-     OpAgrup_ParCierre,
-     OpAgrup_CorchApert,
-     OpAgrup_CorchCierre,
-     OpAgrup_LlaveApert,
-     OpAgrup_LlaveCierre,
-     OpAsig,
-     PuntoComa,
-     Identificador,
-     Cadena_texto,
-     Numero_Part,
-     Numero_Exact,
-     SimbEsp_Comilla,
-     SimbEsp_Punto,
-     SimbEsp_Coma,
-     SimbEsp_DosPuntos,
-     Simbolo_Especial,
-     PR_Stop,
-     PR_Sleep,
-     PR_Filamenttype,
-     PR_Setfilamenttype,
-     PR_Getextrusorx,
-     PR_Getextrusory,
-     PR_Getextrusorz,
-     PR_Setextrusorx,
-     PR_Setextrusory,
-     PR_Setextrusorz,
-     PR_Draw,
-     PR_Fillrectangulo,
-     PR_Filltriangulo,
-     PR_Fillcirculo,
-     PR_Home,
-     PR_Port,
-     ERROR1,
-     ERROR2,
-     ERROR3,
-     ERROR4,
-     ERROR5
+terminal PR_Catch, PR_Class,PR_Def,PR_Default,PR_Else,PR_Exact,PR_Exeption,PR_Flag,PR_For,PR_If,PR_Ing,PR_Interruption,PR_Imp,PR_Main,PR_Option,PR_Part,PR_Try,PR_Switch,PR_Void,PR_While,PR_Word,PR_True,PR_False,PR_Return,OpAritm_Suma,OpAritm_Resta,OpAritm_Mult,OpAritm_Div,OpAritm_Resto,OpRel_Menor,OpRel_Mayor,OpRel_Igual,OpRel_MenorIgual,OpRel_MayorIgual,OpRel_Diferente,Op_Incremento,Op_Decremento,OpLog_And,OpLog_Or,OpLog_Not,OpAgrup_ParApert,OpAgrup_ParCierre,OpAgrup_CorchApert,OpAgrup_CorchCierre,OpAgrup_LlaveApert,OpAgrup_LlaveCierre,OpAsig,PuntoComa,Identificador,Cadena_texto,Numero_Part,Numero_Exact,SimbEsp_Comilla,SimbEsp_Punto,SimbEsp_Coma,SimbEsp_DosPuntos,Simbolo_Especial,PR_Stop,PR_Sleep,PR_Filamenttype,PR_Setfilamenttype,PR_Getextrusorx,PR_Getextrusory,PR_Getextrusorz,PR_Setextrusorx,PR_Setextrusory,PR_Setextrusorz,PR_Draw,PR_Fillrectangulo,PR_Filltriangulo,PR_Fillcirculo, PR_Drawrectangulo, PR_Home,PR_Port,ERROR1,ERROR2,ERROR3,ERROR4,ERROR5
 ;
-non terminal INICIO, 
-             SENTENCIA,
-             DECLARA_ID,
-             FUNCION_ENTRADA,
-             FUNCION_SALIDA,
-             SALIDA,   
-             CONCATENACION,
-             IF,
-             SENTENCIA_BOOLEANA,
-             OP_REL,
-             BOOLEAN, 
-             IF_ELSE,
-             FOR,
-             OP_INCREMENTOS,
-             SWITCH,
-             LISTA_OPTIONS,
-             OPTION,
-             WHILE,
-             ARREGLO,
-             LISTA_EXACT,
-             LISTA_PART,
-             LISTA_WORD,
-             LISTA_FLAG,
-             EXCEPCIONES,
-             FUNCION, 
-             RETORNO, 
-             PARAMETRO,
-             TIPO_DATO,
-             LLAMAR_METODO,
-             METODOS,
-             NUMERO,
-             OP_REL_MEN_MAY,
-             FUNCION_MAIN,
-             ASIGNACION,
-             FUNCION_DEF,
-             METODOS_DEF,
-             ERRORES,
-             DEFAULT,
-             ARITMETICAS,
-             OP_ARITMETICO,
-             STOP,
-             SLEEP,
-             SETFILAMENT,
-             HOME,
-             PRINTERPORT,
-             GETEXTRUSORX,
-             GETEXTRUSORY,
-             GETEXTRUSORZ,
-             FILLRECTANGULO,
-             LISTAPARAMETRO,
-             COORDENADASR,
-             FILAMENT
+non terminal INICIO, SENTENCIA,DECLARA_ID,FUNCION_ENTRADA,FUNCION_SALIDA,SALIDA,CONCATENACION,IF,SENTENCIA_BOOLEANA,OP_REL,BOOLEAN, IF_ELSE,FOR,OP_INCREMENTOS,SWITCH,LISTA_OPTIONS,OPTION,WHILE,ARREGLO,LISTA_EXACT,LISTA_PART,LISTA_WORD,LISTA_FLAG,EXCEPCIONES,FUNCION, RETORNO, PARAMETRO,TIPO_DATO,LLAMAR_METODO,METODOS,NUMERO,OP_REL_MEN_MAY,FUNCION_MAIN,ASIGNACION,FUNCION_DEF,METODOS_DEF,ERRORES,DEFAULT,ARITMETICAS,OP_ARITMETICO,STOP,SLEEP,SETFILAMENT,HOME,PRINTERPORT,GETEXTRUSORX,GETEXTRUSORY,GETEXTRUSORZ,FILLRECTANGULO,LISTAPARAMETRO,COORDENADASR,FILAMENT,DRAWRECTANGULO
 ;
 start with INICIO;
 
@@ -193,41 +65,23 @@ INICIO  ::= PR_Class:t Identificador:i OpAgrup_LlaveApert FUNCION_MAIN FUNCION_D
 
          |   PR_Class Identificador OpAgrup_LlaveApert FUNCION_MAIN OpAgrup_LlaveCierre
         |   PR_Class :e OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF OpAgrup_LlaveCierre
-            {:
-                this.parser.errores += "Error sintáctico 1. Linea: "+ (eright + 1) + ". Se esperaba un identificador antes de la llave de apertura. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 1. Linea: "+ (eright + 1) + ". Se esperaba un identificador antes de la llave de apertura. \n";:}
         |   PR_Class :e OpAgrup_LlaveApert FUNCION_MAIN OpAgrup_LlaveCierre
-            {:
-                this.parser.errores += "Error sintáctico 1. Linea: "+ (eright + 1) + ". Se esperaba un identificador antes de la llave de apertura. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 1. Linea: "+ (eright + 1) + ". Se esperaba un identificador antes de la llave de apertura. \n";:}
         |   PR_Class Identificador :e FUNCION_MAIN FUNCION_DEF OpAgrup_LlaveCierre
-            {:
-                this.parser.errores += "Error sintáctico 2. Linea: "+ (eright + 1) + ". Se esperaba una { antes de la sentencia. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 2. Linea: "+ (eright + 1) + ". Se esperaba una { antes de la sentencia. \n";:}
         |   PR_Class Identificador :e FUNCION_MAIN OpAgrup_LlaveCierre
-            {:
-                this.parser.errores += "Error sintáctico 2. Linea: "+ (eright + 1) + ". Se esperaba una { antes de la sentencia. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 2. Linea: "+ (eright + 1) + ". Se esperaba una { antes de la sentencia. \n";:}
         |   PR_Class Identificador OpAgrup_LlaveApert :e FUNCION_DEF OpAgrup_LlaveCierre
-            {:
-                this.parser.errores += "Error sintáctico 3. Linea: "+ (eright + 1) + ". Se esperaba una funcion principal MAIN entre las llaves. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 3. Linea: "+ (eright + 1) + ". Se esperaba una funcion principal MAIN entre las llaves. \n";:}
         |   PR_Class Identificador OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF error:e 
-            {:
-                this.parser.errores += "Error sintáctico 4. Linea: "+ (eright + 1) + ". Se esperaba una } despues de la sentencia. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 4. Linea: "+ (eright + 1) + ". Se esperaba una } despues de la sentencia. \n";:}
         |   PR_Class Identificador OpAgrup_LlaveApert FUNCION_MAIN error:e 
-            {:
-                this.parser.errores += "Error sintáctico 4. Linea: "+ (eright + 1) + ". Se esperaba una } despues de la sentencia. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 4. Linea: "+ (eright + 1) + ". Se esperaba una } despues de la sentencia. \n";:}
         |   PR_Class Identificador OpAgrup_LlaveApert error:e 
-            {:
-                this.parser.errores += "Error sintáctico 4. Linea: "+ (eright + 1) + ". Se esperaba una } despues de la sentencia. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 4. Linea: "+ (eright + 1) + ". Se esperaba una } despues de la sentencia. \n";:}
         |   PR_Class Identificador OpAgrup_LlaveApert :e OpAgrup_LlaveCierre 
-            {:
-                this.parser.errores += "Error sintáctico 115. Linea: "+ (eright + 1) + ". Se esperaba la funcion MAIN. \n";
-            :}
+                {:this.parser.errores += "Error sintáctico 115. Linea: "+ (eright + 1) + ". Se esperaba la funcion MAIN. \n";:}
 ;
 
 FUNCION_DEF ::= FUNCION
@@ -247,7 +101,6 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
             |   ASIGNACION | ASIGNACION SENTENCIA
             |   METODOS_DEF | METODOS_DEF SENTENCIA
             |   STOP | STOP SENTENCIA
-            |   SLEEP | SLEEP SENTENCIA
             |   HOME  | HOME SENTENCIA
             |   SETFILAMENT | SETFILAMENT SENTENCIA
             |   PRINTERPORT | PRINTERPORT SENTENCIA
@@ -256,6 +109,7 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
             |   GETEXTRUSORZ | GETEXTRUSORZ SENTENCIA
             |   FILLRECTANGULO | FILLRECTANGULO SENTENCIA
             |   FILAMENT | FILAMENT SENTENCIA
+            |   DRAWRECTANGULO | DRAWRECTANGULO SENTENCIA
 ;
 
 DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
@@ -1786,7 +1640,6 @@ TIPO_DATO   ::= PR_Exact
             |   PR_Word 
             |   PR_Flag
 ;
-
 STOP        ::= PR_Stop OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
             |   PR_Stop OpAgrup_ParApert OpAgrup_ParCierre :e
                 {:
@@ -1797,20 +1650,6 @@ STOP        ::= PR_Stop OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
                     this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
                 :}
             |   PR_Stop :e OpAgrup_ParCierre  PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
-                :}
-;
-SLEEP       ::= PR_Sleep OpAgrup_ParApert OpAgrup_ParCierre PuntoComa 
-            |   PR_Sleep OpAgrup_ParApert OpAgrup_ParCierre :e
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
-                :}
-            |   PR_Sleep OpAgrup_ParApert error:e PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
-                :}
-            |   PR_Sleep :e OpAgrup_ParCierre  PuntoComa
                 {:
                     this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
                 :}
@@ -1865,34 +1704,6 @@ PRINTERPORT ::= PR_Port OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoCom
                     this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
                 :}
 ;
-GETEXTRUSORX ::= PR_Getextrusorx OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
-                |   PR_Getextrusorx OpAgrup_ParApert OpAgrup_ParCierre :e
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
-                :}
-                |   PR_Getextrusorx OpAgrup_ParApert :e PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
-                :}
-                |   PR_Getextrusorx :e OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
-                :}
-;   
-GETEXTRUSORY ::= PR_Getextrusory OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
-                |   PR_Getextrusory OpAgrup_ParApert OpAgrup_ParCierre :e
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
-                :}
-                |   PR_Getextrusory OpAgrup_ParApert :e PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
-                :}
-                |   PR_Getextrusory :e OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
-                :}
-;
 FILLRECTANGULO  ::= PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre PuntoComa
                 |   PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre :e
                 {:
@@ -1904,21 +1715,52 @@ FILLRECTANGULO  ::= PR_Fillrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_Pa
                 :}
                 |   PR_Fillrectangulo OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa
                 {:
-                    this.parser.errores += "Error sintáctico 125. Linea: "+ (eright + 1) + ". Se esperaban parametros. \n";
-                :}
+                    this.parser.errores += "Error sintáctico 125. Linea: "+ (eright + 1) + ". Se esperaban parametros. \n";:}
                 |   PR_Fillrectangulo :e LISTAPARAMETRO OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
-                :}
+                {:this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";:}
 ;
 LISTAPARAMETRO  ::= Numero_Exact
                 |   ERRORES
                 |   Numero_Exact SimbEsp_Coma LISTAPARAMETRO
                 |   ERRORES SimbEsp_Coma LISTAPARAMETRO
                 |   Numero_Exact SimbEsp_Coma error:e
-                    {:
-                        this.parser.errores += "Error sintáctico 33. Línea: "+ (eright + 1) + ". Se esperaba un numero 'exact' despues del simbolo ,. \n";
-                    :}
+                    {:this.parser.errores += "Error sintáctico 33. Línea: "+ (eright + 1) + ". Se esperaba un numero 'exact' despues del simbolo ,. \n";:}
+;
+DRAWRECTANGULO   ::=PR_Drawrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre PuntoComa
+                |   PR_Drawrectangulo OpAgrup_ParApert LISTAPARAMETRO OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+                |   PR_Drawrectangulo OpAgrup_ParApert LISTAPARAMETRO :e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+                |   PR_Drawrectangulo OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 125. Linea: "+ (eright + 1) + ". Se esperaban parametros. \n";
+                :}
+                |   PR_Drawrectangulo :e LISTAPARAMETRO OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
+;
+FILAMENT    ::= PR_Filamenttype OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre PuntoComa 
+            |   PR_Filamenttype OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+            |   PR_Filamenttype OpAgrup_ParApert Cadena_texto :e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+            |   PR_Filamenttype OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperabancadena de texto entre los parectesis. \n";
+                :}
+            |   PR_Filamenttype :e Cadena_texto OpAgrup_ParCierre PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
 ;
 ERRORES ::= ERROR1
         |   ERROR2

@@ -1,0 +1,14 @@
+SLEEP       ::= PR_Sleep OpAgrup_ParApert OpAgrup_ParCierre PuntoComa 
+            |   PR_Sleep OpAgrup_ParApert OpAgrup_ParCierre :e
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un punto y coma. \n";
+                :}
+            |   PR_Sleep OpAgrup_ParApert error:e PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de cierre. \n";
+                :}
+            |   PR_Sleep :e OpAgrup_ParCierre  PuntoComa
+                {:
+                    this.parser.errores += "Error sintáctico 31. Linea: "+ (eright + 1) + ". Se esperaba un parentesis de apertura. \n";
+                :}
+;

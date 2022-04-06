@@ -1,21 +1,34 @@
-class caminar {
+class figura{
  def void main(){
-	exact grado = 5;
-	word t = 'hola';
-	exact e2 = 2;
-	part part1 = 3.2;
-	part part2;
-	flag f1 = true;
-	flag f2 = false;
-	flag f3;
+	iniciar(); 
+	try{
+		drawrectangulo(1,0,1,
+			     1,0,6,
+			     4,0,1,
+			     4,0,6);
 	
-	t = 2;
+		home(); **Regresa a posición inicial
+		setfilamenttype('ABS'); **Cambiar de filamento
+		port(2);
+		for(exact i=0;i<10; i++){
+			fillrectangulo(1,0,1,1,0,6,4,0,1,4,0,6);
+		}	
+	}catch(exception e){
+		stop();
+		home();
+	}
+	detener();
+ }
 
-	if(e2 >= y){
-		e2=5;
-	fillrectangulo(3,3,3);
-		}
-	
+ def void iniciar(){
+	filamenttype('Policarbonato'); **Indica filamento al iniciar
+	port(5); **puerto por el que se imprime
+ }
+ 
+ def void detener(){
+	stop();
+	home();
+	port(0);
  }
 
 }**Fin class

@@ -70,6 +70,7 @@ espacio = {LineTerminator} | [ \t\f]
 ("fillrectangulo") {return new Symbol(sym.PR_Fillrectangulo, yychar, yyline, yytext());}
 ("filltriangulo") {return new Symbol(sym.PR_Filltriangulo, yychar, yyline, yytext());}
 ("fillcirculo") {return new Symbol(sym.PR_Fillcirculo, yychar, yyline, yytext());}
+("drawrectangulo") {return new Symbol(sym.PR_Drawrectangulo, yychar, yyline, yytext());}
 
 /* Coma */
 {C} {return new Symbol(sym.SimbEsp_Coma, yychar, yyline, yytext());}

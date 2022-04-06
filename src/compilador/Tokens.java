@@ -87,6 +87,7 @@ public enum Tokens {
      PR_Fillrectangulo,
      PR_Filltriangulo,
      PR_Fillcirculo,
+     PR_Drawrectangulo,
      PR_Home,
      PR_Port,
 }
