@@ -52,6 +52,8 @@ public class IDE extends javax.swing.JFrame {
         txtAreaCod = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblSimb = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        taIntermedio = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         btnArchivo = new javax.swing.JMenu();
         bntNuevo = new javax.swing.JMenuItem();
@@ -77,6 +79,7 @@ public class IDE extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtConsola);
 
         txtAreaCod.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtAreaCod.setText("class figura{\n def void main(){\n\ttry{\n\t\tfor(exact i=0;i<10; i++){\n\t\t\tdrawrectangulo(1,1,\n\t\t\t     1,6,\n\t\t\t     4,1,\n\t\t\t     4,6);\nexact x;\t\nx=5;\nx = x + 1;\n\t\t}\t\t\n\t\thome(); **Regresa a posición inicial\t\t\n\t}catch(exception e){\n\t\tstop();\n\t\thome();\n\t}\n\tdetener();\n }\n def void detener(){\n\tstop();\n\thome();\n }\n}**Fin class");
         txtAreaCod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtAreaCodKeyReleased(evt);
@@ -107,28 +110,42 @@ public class IDE extends javax.swing.JFrame {
             tblSimb.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
+        taIntermedio.setEditable(false);
+        taIntermedio.setColumns(20);
+        taIntermedio.setRows(5);
+        jScrollPane4.setViewportView(taIntermedio);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -399,8 +416,15 @@ public class IDE extends javax.swing.JFrame {
             txtConsola.setForeground(new Color(25, 111, 61));
         }
         tablaSimbolos_id.ObtenDatos();
+        
+        mostrarIntermedio();
     }//GEN-LAST:event_bntCompilarActionPerformed
 
+    public void mostrarIntermedio(){
+        for (int i = 0; i < listSentencias.size(); i++) {
+            taIntermedio.append(listSentencias.get(i) + "\n");
+        }
+    }
     public void analizadorSint() {
 
         String ST = txtAreaCod.getText();
@@ -464,6 +488,7 @@ public class IDE extends javax.swing.JFrame {
     public static String erroresSint = "";
     public static String todosErrores = "";
 
+    public static ArrayList<String> listSentencias = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem bntCompilar;
     private javax.swing.JMenuItem bntNuevo;
@@ -480,6 +505,8 @@ public class IDE extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea taIntermedio;
     private javax.swing.JTable tblSimb;
     public javax.swing.JTextPane txtAreaCod;
     private javax.swing.JTextArea txtConsola;
