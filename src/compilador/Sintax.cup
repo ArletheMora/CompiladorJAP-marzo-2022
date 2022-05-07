@@ -1,6 +1,7 @@
 package compilador;
 
 import java_cup.runtime.Symbol;
+import java.util.ArrayList;
 
 parser code{:
     public Lexer lex;
@@ -48,6 +49,10 @@ action code{:
     }*/
     public static String dato = ""; //dato de los no terminales
     public static String operador = ""; //dato de los no terminales
+    /* public static ArrayList<String> listDato = new ArrayList<>();
+    public static ArrayList<String> listOpe = new ArrayList<>(); */
+    public static int contDato=0;
+    public static int contOpe =0;
     private static int actual = 0;
     private static String nuevaTemp(){
         return "T"+(++actual);
@@ -70,7 +75,7 @@ INICIO  ::= PR_Class:t Identificador:i OpAgrup_LlaveApert FUNCION_MAIN FUNCION_D
         |   PR_Class ERRORES OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF OpAgrup_LlaveCierre
         |   ERRORES ERRORES OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF OpAgrup_LlaveCierre
 
-         |   PR_Class Identificador OpAgrup_LlaveApert FUNCION_MAIN OpAgrup_LlaveCierre
+        |   PR_Class Identificador OpAgrup_LlaveApert FUNCION_MAIN OpAgrup_LlaveCierre
         |   PR_Class :e OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF OpAgrup_LlaveCierre
                 {:this.parser.errores += "Error sintáctico 1. Linea: "+ (eright + 1) + ". Se esperaba un identificador antes de la llave de apertura. \n";:}
         |   PR_Class :e OpAgrup_LlaveApert FUNCION_MAIN OpAgrup_LlaveCierre
@@ -512,18 +517,22 @@ ARITMETICAS ::= NUMERO
             |   Identificador:e1 OP_ARITMETICO:op ARITMETICAS
                 {:
                     RESULT = nuevaTemp();
-                    System.out.println(RESULT + "=" + e1 + " " + op + " " +dato);
-                    IDE.listSentencias.add(RESULT + "=" + e1 + " " + op + " " +dato);
+                    System.out.println(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    IDE.listSentencias.add(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    contOpe++;
+                    for (int i = 0; i < IDE.listOpe.size(); i++) {
+                        System.out.println(IDE.listOpe.get(i));
+                    }
                 :}
             |   Identificador :e ARITMETICAS
                 {:this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";:}
 ;
 
-OP_ARITMETICO   ::= OpAritm_Suma:op {:operador = op.toString();:}
-                |   OpAritm_Resta:op  {:operador = op.toString();:}
-                |   OpAritm_Mult:op  {:operador = op.toString();:}
-                |   OpAritm_Div:op  {:operador = op.toString();:}
-                |   OpAritm_Resto:op  {:operador = op.toString();:}
+OP_ARITMETICO   ::= OpAritm_Suma:op  {:IDE.listOpe.add(op.toString());  :}
+                |   OpAritm_Resta:op {:IDE.listOpe.add(op.toString());  :}
+                |   OpAritm_Mult:op  {:IDE.listOpe.add(op.toString());  :}
+                |   OpAritm_Div:op   {:IDE.listOpe.add(op.toString());  :}
+                |   OpAritm_Resto:op {:IDE.listOpe.add(op.toString());  :}
 ;
 ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:

@@ -1,11 +1,13 @@
 package compilador;
 
 import java_cup.runtime.Symbol;
+import java.util.ArrayList;
 
 parser code{:
     public Lexer lex;
     public static String errores = "";
     StringBuilder m = new StringBuilder("");
+    public String RESULT;
  
    private Symbol s;
 
@@ -45,6 +47,16 @@ action code{:
         IDE.m.addRow(new Object[]{fila, identificador, tipoDato, valor});
         System.out.println("Tipo: "+tipoDato + " Identificador: "+identificador+" Valor: "+valor);
     }*/
+    public static String dato = ""; //dato de los no terminales
+    public static String operador = ""; //dato de los no terminales
+    /* public static ArrayList<String> listDato = new ArrayList<>();
+    public static ArrayList<String> listOpe = new ArrayList<>(); */
+    public static int contDato=0;
+    public static int contOpe =0;
+    private static int actual = 0;
+    private static String nuevaTemp(){
+        return "T"+(++actual);
+    }
 :};
 
 terminal PR_Catch, PR_Class,PR_Def,PR_Default,PR_Else,PR_Exact,PR_Exeption,PR_Flag,PR_For,PR_If,PR_Ing,PR_Interruption,PR_Imp,PR_Main,PR_Option,PR_Part,PR_Try,PR_Switch,PR_Void,PR_While,PR_Word,PR_True,PR_False,PR_Return,OpAritm_Suma,OpAritm_Resta,OpAritm_Mult,OpAritm_Div,OpAritm_Resto,OpRel_Menor,OpRel_Mayor,OpRel_Igual,OpRel_MenorIgual,OpRel_MayorIgual,OpRel_Diferente,Op_Incremento,Op_Decremento,OpLog_And,OpLog_Or,OpLog_Not,OpAgrup_ParApert,OpAgrup_ParCierre,OpAgrup_CorchApert,OpAgrup_CorchCierre,OpAgrup_LlaveApert,OpAgrup_LlaveCierre,OpAsig,PuntoComa,Identificador,Cadena_texto,Numero_Part,Numero_Exact,SimbEsp_Comilla,SimbEsp_Punto,SimbEsp_Coma,SimbEsp_DosPuntos,Simbolo_Especial,PR_Stop,PR_Sleep,PR_Filamenttype,PR_Setfilamenttype,PR_Getextrusorx,PR_Getextrusory,PR_Getextrusorz,PR_Setextrusorx,PR_Setextrusory,PR_Setextrusorz,PR_Draw,PR_Fillrectangulo,PR_Filltriangulo,PR_Fillcirculo, PR_Drawrectangulo, PR_Home,PR_Port,ERROR1,ERROR2,ERROR3,ERROR4,ERROR5
@@ -63,7 +75,7 @@ INICIO  ::= PR_Class:t Identificador:i OpAgrup_LlaveApert FUNCION_MAIN FUNCION_D
         |   PR_Class ERRORES OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF OpAgrup_LlaveCierre
         |   ERRORES ERRORES OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF OpAgrup_LlaveCierre
 
-         |   PR_Class Identificador OpAgrup_LlaveApert FUNCION_MAIN OpAgrup_LlaveCierre
+        |   PR_Class Identificador OpAgrup_LlaveApert FUNCION_MAIN OpAgrup_LlaveCierre
         |   PR_Class :e OpAgrup_LlaveApert FUNCION_MAIN FUNCION_DEF OpAgrup_LlaveCierre
                 {:this.parser.errores += "Error sintáctico 1. Linea: "+ (eright + 1) + ". Se esperaba un identificador antes de la llave de apertura. \n";:}
         |   PR_Class :e OpAgrup_LlaveApert FUNCION_MAIN OpAgrup_LlaveCierre
@@ -241,10 +253,7 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
 
             |   PR_Word ERRORES PuntoComa
 
-            |   PR_Word :e PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 14. Línea: "+ (eright + 1) + " Se esperaba un identificador. \n";
-                :}
+            |   PR_Word :e PuntoComa {:this.parser.errores += "Error sintáctico 14. Línea: "+ (eright + 1) + " Se esperaba un identificador. \n";:}
             |   PR_Word Identificador :e
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
@@ -498,27 +507,32 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
 ;
 
 ARITMETICAS ::= NUMERO
-            |   Identificador
+            |   Identificador:i {:dato = i.toString();:}
             |   ERRORES
             |   OpAgrup_ParApert ARITMETICAS OpAgrup_ParCierre
-            |   NUMERO OP_ARITMETICO ARITMETICAS
+            |   NUMERO:n OP_ARITMETICO ARITMETICAS 
             |   NUMERO :e ARITMETICAS
-                {:
-                    this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";
-                :}
+                {:this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";:}
             |   ERRORES OP_ARITMETICO ARITMETICAS
-            |   Identificador OP_ARITMETICO ARITMETICAS
-            |   Identificador :e ARITMETICAS
+            |   Identificador:e1 OP_ARITMETICO:op ARITMETICAS
                 {:
-                    this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";
+                    RESULT = nuevaTemp();
+                    System.out.println(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    IDE.listSentencias.add(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    contOpe++;
+                    for (int i = 0; i < IDE.listOpe.size(); i++) {
+                        System.out.println(IDE.listOpe.get(i));
+                    }
                 :}
+            |   Identificador :e ARITMETICAS
+                {:this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";:}
 ;
 
-OP_ARITMETICO   ::= OpAritm_Suma
-                |   OpAritm_Resta
-                |   OpAritm_Mult
-                |   OpAritm_Div
-                |   OpAritm_Resto
+OP_ARITMETICO   ::= OpAritm_Suma:op  {:IDE.listOpe.add(op.toString());  :}
+                |   OpAritm_Resta:op {:IDE.listOpe.add(op.toString());  :}
+                |   OpAritm_Mult:op  {:IDE.listOpe.add(op.toString());  :}
+                |   OpAritm_Div:op   {:IDE.listOpe.add(op.toString());  :}
+                |   OpAritm_Resto:op {:IDE.listOpe.add(op.toString());  :}
 ;
 ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 {:
@@ -529,6 +543,9 @@ ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                              this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
                         }else{
                             IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
+                            System.out.println(i.toString() + "=" + v);
+                            IDE.listSentencias.add(i.toString() + "=" + v);
+                            RESULT = i;
                         }
                     }
                 :}
@@ -542,6 +559,9 @@ ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                              this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
                         }else{
                             IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
+                            System.out.println(i.toString() + "=" + v);
+                            IDE.listSentencias.add(i.toString() + "=" + v);
+                            RESULT = i;
                         }
                     }
                 :}
@@ -555,6 +575,9 @@ ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                              this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
                         }else{
                             IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
+                            System.out.println(i.toString() + "=" + v);
+                            IDE.listSentencias.add(i.toString() + "=" + v);
+                            RESULT = i;
                         }
                     }
                 :}
@@ -568,6 +591,9 @@ ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                              this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
                         }else{
                             IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
+                            System.out.println(i.toString() + "=" + v);
+                            IDE.listSentencias.add(i.toString() + "=" + v);
+                            RESULT = i;
                         }
                     }
                 :}
@@ -581,10 +607,18 @@ ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                              this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
                         }else{
                             IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
+                            System.out.println(i.toString() + "=" + v); 
+                            IDE.listSentencias.add(i.toString() + "=" + v);
+                            RESULT = i;
                         }
                     }
                 :}
-
+            |   Identificador:i OpAsig Identificador:e1 OP_ARITMETICO ARITMETICAS PuntoComa
+                {:
+                    RESULT = nuevaTemp();
+                    System.out.println(RESULT + "=" + e1 + " " + operador + " "  +dato);
+                    IDE.listSentencias.add(RESULT + "=" + e1 + " " + operador + " " +dato);
+                :}
             |   ERRORES OpAsig SALIDA PuntoComa
             |   ERRORES OpAsig NUMERO PuntoComa
             |   Identificador OpAsig SALIDA error:e
@@ -612,8 +646,8 @@ ASIGNACION  ::= Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba el operador de asignacion =. \n";
                 :}
 ;
-NUMERO  ::= Numero_Part
-        |   Numero_Exact
+NUMERO  ::= Numero_Part:v {:dato = v.toString();:}
+        |   Numero_Exact:v {:dato = v.toString();:}
 ;
 METODOS_DEF ::= Identificador OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
             |   ERRORES OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
@@ -1070,7 +1104,7 @@ BOOLEAN ::= PR_True
 OP_INCREMENTOS  ::= Op_Incremento
                 |   Op_Decremento
 ;
-SWITCH  ::= PR_Switch OpAgrup_ParApert SENTENCIA OpAgrup_ParCierre OpAgrup_LlaveApert LISTA_OPTIONS DEFAULT OpAgrup_LlaveCierre
+/*SWITCH  ::= PR_Switch OpAgrup_ParApert SENTENCIA OpAgrup_ParCierre OpAgrup_LlaveApert LISTA_OPTIONS DEFAULT OpAgrup_LlaveCierre
         |   PR_Switch OpAgrup_ParApert SENTENCIA OpAgrup_ParCierre OpAgrup_LlaveApert LISTA_OPTIONS DEFAULT error:e 
             {:
             this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba una llave de cierre }. \n";
@@ -1103,7 +1137,7 @@ SWITCH  ::= PR_Switch OpAgrup_ParApert SENTENCIA OpAgrup_ParCierre OpAgrup_Llave
             {:
             this.parser.errores += "Error sintáctico 44. Línea: "+ (eright + 1) + ". Se esperaba un simbolo ( antes de la sentencia. \n";
             :} 
-;
+;*/
 LISTA_OPTIONS   ::= OPTION 
                 |   OPTION LISTA_OPTIONS
 ;

@@ -1,34 +1,24 @@
 class figura{
  def void main(){
-	iniciar(); 
 	try{
-		drawrectangulo(1,0,1,
-			     1,0,6,
-			     4,0,1,
-			     4,0,6);
-	
-		home(); **Regresa a posición inicial
-		setfilamenttype('ABS'); **Cambiar de filamento
-		port(2);
 		for(exact i=0;i<10; i++){
-			fillrectangulo(1,0,1,1,0,6,4,0,1,4,0,6);
-		}	
+			drawrectangulo(1,1,
+			     1,6,
+			     4,1,
+			     4,6);
+exact x;	
+x=5;
+x = x + 1 - 3 * x ;
+		}		
+		home(); **Regresa a posición inicial		
 	}catch(exception e){
 		stop();
 		home();
 	}
 	detener();
  }
-
- def void iniciar(){
-	filamenttype('Policarbonato'); **Indica filamento al iniciar
-	port(5); **puerto por el que se imprime
- }
- 
  def void detener(){
 	stop();
 	home();
-	port(0);
  }
-
 }**Fin class

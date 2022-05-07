@@ -79,7 +79,7 @@ public class IDE extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtConsola);
 
         txtAreaCod.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtAreaCod.setText("class figura{\n def void main(){\n\ttry{\n\t\tfor(exact i=0;i<10; i++){\n\t\t\tdrawrectangulo(1,1,\n\t\t\t     1,6,\n\t\t\t     4,1,\n\t\t\t     4,6);\nexact x;\t\nx=5;\nx = x + 1;\n\t\t}\t\t\n\t\thome(); **Regresa a posición inicial\t\t\n\t}catch(exception e){\n\t\tstop();\n\t\thome();\n\t}\n\tdetener();\n }\n def void detener(){\n\tstop();\n\thome();\n }\n}**Fin class");
+        txtAreaCod.setText("class figura{\n def void main(){\n\ttry{\n\t\tfor(exact i=0;i<10; i++){\n\t\t\tdrawrectangulo(1,1,\n\t\t\t     1,6,\n\t\t\t     4,1,\n\t\t\t     4,6);\nexact x;\t\nx=5;\nx = x + 1 - 3 * x ;\n\t\t}\t\t\n\t\thome(); **Regresa a posición inicial\t\t\n\t}catch(exception e){\n\t\tstop();\n\t\thome();\n\t}\n\tdetener();\n }\n def void detener(){\n\tstop();\n\thome();\n }\n}**Fin class");
         txtAreaCod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtAreaCodKeyReleased(evt);
@@ -405,6 +405,7 @@ public class IDE extends javax.swing.JFrame {
 
     private void bntCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCompilarActionPerformed
         tablaSimbolos_id.ListaTokens.clear();
+        listSentencias.clear();
         analizadorLexico();
         analizadorSint();
         todosErrores = errores + erroresSint;
@@ -423,6 +424,10 @@ public class IDE extends javax.swing.JFrame {
     public void mostrarIntermedio(){
         for (int i = 0; i < listSentencias.size(); i++) {
             taIntermedio.append(listSentencias.get(i) + "\n");
+        }
+        
+        for (int i = 0; i < IDE.listOpe.size(); i++) {
+             System.out.println(IDE.listOpe.get(i));
         }
     }
     public void analizadorSint() {
@@ -489,6 +494,7 @@ public class IDE extends javax.swing.JFrame {
     public static String todosErrores = "";
 
     public static ArrayList<String> listSentencias = new ArrayList<>();
+    public static ArrayList<String> listOpe= new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem bntCompilar;
     private javax.swing.JMenuItem bntNuevo;
