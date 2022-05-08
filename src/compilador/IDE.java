@@ -15,25 +15,29 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
 import javax.swing.table.DefaultTableModel;
 
 public class IDE extends javax.swing.JFrame {
-    
+
     public static TablaSimbolos tablaSimbolos_id;
-    
+    public static HashMap<String, String> codigoInter;
     NumeroLinea numeroLinea;
     Directorio dir;
     String errores = "";
+    int temp;
 
-  
     public IDE() {
         initComponents();
         inicializar();
         this.setLocationRelativeTo(null);
         tablaSimbolos_id = new TablaSimbolos();
+        temp = 0;
+        codigoInter = new HashMap<>();
     }
 
     /**
@@ -293,7 +297,7 @@ public class IDE extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnalizadorLexicoActionPerformed
     public static DefaultTableModel m;
     public static Lexer lexer;
-    
+
     public void analizadorLexico() {
         //limpiar tabla
         //tablaSimbolosS_id = new TablaSimbolos();
@@ -415,21 +419,109 @@ public class IDE extends javax.swing.JFrame {
         } else {
             txtConsola.setText("Analisis Sintatico realizado correctamente \n");
             txtConsola.setForeground(new Color(25, 111, 61));
+            tablaSimbolos_id.ObtenDatos();
+
+            //mostrarIntermedio();
+            
+            codInter.Arbol a = new codInter.Arbol();
+
+            LineasCodigo = txtAreaCod.getText().split("\n");
+
+            Expresion = LineasCodigo[lineaExprecion-1];
+
+            StringTokenizer tokenizer;
+            String token = "";
+
+            tokenizer = new StringTokenizer(Expresion, ";", false);
+            //System.out.println(Expresion);
+            while (tokenizer.hasMoreTokens()) {
+                token = tokenizer.nextToken();
+            }//while-tokenizer-hashMoreTokens
+
+            tokenizer = new StringTokenizer(token,"=",false);
+            
+            while (tokenizer.hasMoreTokens()) {
+                token = tokenizer.nextToken();
+                
+            }//while-tokenizer-hashMoreTokens
+            token = token.replace(" ", "");
+            System.out.println(token);
+            
+            codInter.Nodo arbolExpresion = a.crear(token);
+            intermedio(arbolExpresion);
+            taIntermedio.append(arbolExpresion.getCodigoIntermedio());
         }
-        tablaSimbolos_id.ObtenDatos();
-        
-        mostrarIntermedio();
+
     }//GEN-LAST:event_bntCompilarActionPerformed
 
-    public void mostrarIntermedio(){
+    public void intermedio(codInter.Nodo n) {
+        if (n != null) {
+            intermedio(n.getIzquierdo());
+            intermedio(n.getDerecho());
+            if (n.getIzquierdo() == null && n.getDerecho() == null) {
+                n.setLugar(n.getDato() + "");
+                n.setCodigoIntermedio("");
+            } else {
+                if ((n.getDato().equals("+")) || (n.getDato().equals("*")) || (n.getDato().equals("-")) || (n.getDato().equals("/"))) {
+                    temp++;
+                    n.setLugar("T" + temp);
+                    String codigol = "";
+                    codInter.Nodo izquierdo = n.getIzquierdo();
+                    codInter.Nodo derecho = n.getDerecho();
+
+                    codigol = derecho.getCodigoIntermedio() + izquierdo.getCodigoIntermedio()
+                            + n.getLugar() + "=" + derecho.getLugar()
+                            + n.getDato() + izquierdo.getLugar() + "\n";
+                    n.setCodigoIntermedio(codigol);
+
+                    //Método set HashMap
+                    setCodigoInter(Integer.toString(temp),
+                            n.getLugar() + "="
+                            + derecho.getLugar()
+                            + n.getDato()
+                            + izquierdo.getLugar());
+                    //Fin método set HashMap
+
+                } else {
+                    if (n.getDato().equals("=")) {
+                        String codigol = "";
+                        codInter.Nodo izquierdo = n.getIzquierdo();
+                        codInter.Nodo derecho = n.getDerecho();
+
+                        codigol = derecho.getCodigoIntermedio() + " " + izquierdo.getLugar()
+                                + " = " + "T" + temp + "\n";
+                        //n.setDato(codigol)
+                        n.setCodigoIntermedio(codigol);
+                    }//equals =
+                }//equals + -
+            }//get Derecho get Izquierdo
+        }//n!=null
+    }//intermedio
+
+    //Métodos HashMap
+    public void setCodigoInter(String llave, String codigo) {
+        codigoInter.put(llave, codigo);
+    }
+
+    public String getCodigoInter() {
+        String cadena = "";
+        for (String i : codigoInter.keySet()) {
+            cadena += "key: " + i + " value: " + codigoInter.get(i) + "\n";
+        }
+        return cadena;
+    }
+//Fin métodos HashMap
+
+    public void mostrarIntermedio() {
         for (int i = 0; i < listSentencias.size(); i++) {
             taIntermedio.append(listSentencias.get(i) + "\n");
         }
-        
+
         for (int i = 0; i < IDE.listOpe.size(); i++) {
-             System.out.println(IDE.listOpe.get(i));
+            System.out.println(IDE.listOpe.get(i));
         }
     }
+
     public void analizadorSint() {
 
         String ST = txtAreaCod.getText();
@@ -493,8 +585,13 @@ public class IDE extends javax.swing.JFrame {
     public static String erroresSint = "";
     public static String todosErrores = "";
 
+    public static String Expresion = "";
+    public static int lineaExprecion = 0;
+
+    public static String[] LineasCodigo;
+    public static ArrayList<String> listDato = new ArrayList<>();
     public static ArrayList<String> listSentencias = new ArrayList<>();
-    public static ArrayList<String> listOpe= new ArrayList<>();
+    public static ArrayList<String> listOpe = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem bntCompilar;
     private javax.swing.JMenuItem bntNuevo;
