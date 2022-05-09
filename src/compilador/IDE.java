@@ -422,36 +422,48 @@ public class IDE extends javax.swing.JFrame {
             tablaSimbolos_id.ObtenDatos();
 
             //mostrarIntermedio();
-            
             codInter.Arbol a = new codInter.Arbol();
 
             LineasCodigo = txtAreaCod.getText().split("\n");
 
-            Expresion = LineasCodigo[lineaExprecion-1];
+            for (int i = 0; i < numLineasExp.size(); i++) {
 
-            StringTokenizer tokenizer;
-            String token = "";
+                Expresion = LineasCodigo[numLineasExp.get(i) - 1];
 
-            tokenizer = new StringTokenizer(Expresion, ";", false);
-            //System.out.println(Expresion);
-            while (tokenizer.hasMoreTokens()) {
-                token = tokenizer.nextToken();
-            }//while-tokenizer-hashMoreTokens
+                StringTokenizer tokenizer;
+                String token = "";
 
-            tokenizer = new StringTokenizer(token,"=",false);
-            
-            while (tokenizer.hasMoreTokens()) {
-                token = tokenizer.nextToken();
-                
-            }//while-tokenizer-hashMoreTokens
-            token = token.replace(" ", "");
-            System.out.println(token);
-            
-            codInter.Nodo arbolExpresion = a.crear(token);
-            intermedio(arbolExpresion);
-            taIntermedio.append(arbolExpresion.getCodigoIntermedio());
+                tokenizer = new StringTokenizer(Expresion, ";", false);
+                //System.out.println(Expresion);
+                while (tokenizer.hasMoreTokens()) {
+                    token = tokenizer.nextToken();
+                }//while-tokenizer-hashMoreTokens
+
+                tokenizer = new StringTokenizer(token, "=", false);
+
+                while (tokenizer.hasMoreTokens()) {
+                    token = tokenizer.nextToken();
+
+                }//while-tokenizer-hashMoreTokens
+                if (token.length() > 1) {
+                    token = token.replace(" ", "");
+                    System.out.println(token);
+
+                    codInter.Nodo arbolExpresion = a.crear(token);
+                    intermedio(arbolExpresion);
+                    taIntermedio.append(arbolExpresion.getCodigoIntermedio());
+                } else {
+                    Expresion = LineasCodigo[numLineasExp.get(i) - 1];
+
+                    tokenizer = new StringTokenizer(Expresion, ";", false);
+                    //System.out.println(Expresion);
+                    while (tokenizer.hasMoreTokens()) {
+                        token = tokenizer.nextToken();
+                    }//while-tokenizer-hashMoreTokens
+                    taIntermedio.append(token+"\n");
+                }
+            }
         }
-
     }//GEN-LAST:event_bntCompilarActionPerformed
 
     public void intermedio(codInter.Nodo n) {
@@ -586,8 +598,9 @@ public class IDE extends javax.swing.JFrame {
     public static String todosErrores = "";
 
     public static String Expresion = "";
-    public static int lineaExprecion = 0;
+    public static int lineaExpresion = 0;
 
+    public static ArrayList<Integer> numLineasExp = new ArrayList<>();
     public static String[] LineasCodigo;
     public static ArrayList<String> listDato = new ArrayList<>();
     public static ArrayList<String> listSentencias = new ArrayList<>();

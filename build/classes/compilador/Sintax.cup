@@ -508,37 +508,16 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
 
 ARITMETICAS ::= OpAgrup_ParApert ARITMETICAS OpAgrup_ParCierre
             |   Numero_Exact:n1 OP_ARITMETICO ARITMETICAS
-                {:
-                    RESULT = nuevaTemp();
-                    //System.out.println(RESULT + "=" + n + " " + IDE.listOpe.get(contOpe) + " " +dato);
-                    IDE.listSentencias.add(RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " " + dato);
-                    contOpe++;
-                :}
             |   Numero_Part:n1 OP_ARITMETICO ARITMETICAS
-                {:
-                    RESULT = nuevaTemp();
-                    //System.out.println(RESULT + "=" + n + " " + IDE.listOpe.get(contOpe) + " " +dato);
-                    IDE.listSentencias.add(RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " " + dato);
-                    contOpe++;
-                :}
             |   NUMERO :e ARITMETICAS
                 {:this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";:}
             |   ERRORES OP_ARITMETICO ARITMETICAS :e
                 {:this.parser.errores += "Error sintáctico 154. Línea: "+ (eright + 1) + " Se esperaba un dato antes del operador. \n";:}
             |   Identificador:e1 OP_ARITMETICO:op ARITMETICAS
-                {:
-                    RESULT = nuevaTemp();
-                    //System.out.println(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
-                    IDE.listSentencias.add(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " + dato);
-                    contOpe++;
-                :}
             |   Identificador :e ARITMETICAS
                 {:this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";:}
             |   NUMERO
-            |   Identificador:i 
-                {:
-                    dato = i.toString();
-                :}
+            |   Identificador:i
             |   ERRORES
 ;
 
@@ -553,13 +532,6 @@ ASIGNACION  ::= /* Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     if (IDE.tablaSimbolos_id.buscarToken(i.toString())) { 
                         if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){ //si no tiene tipo
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
-                        }else if(!IDE.tablaSimbolos_id.buscaTipo(i.toString()).equals("exact") ){ //si no es del mismo tipo
-                             this.parser.errores += "Error semantico 9. Línea: "+ (eright + 1) + " Asignación incompatible del identificador '"+ (i.toString())+"' \n";    
-                        }else{
-                            IDE.tablaSimbolos_id.asignaValor(i.toString(), v);
-                            System.out.println(i.toString() + "=" + v);
-                            IDE.listSentencias.add(i.toString() + "=" + v);
-                            RESULT = i;
                         }
                     }
                 :}
@@ -632,9 +604,11 @@ ASIGNACION  ::= /* Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     if (IDE.tablaSimbolos_id.buscarToken(i.toString())) { 
                         if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){ //si no tiene tipo
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
+                        }else{
+                            IDE.tablaSimbolos_id.asignaValor(i.toString(), dato);
                         }
                     }
-                    IDE.lineaExprecion = eright+1;
+                    IDE.numLineasExp.add(eright+1);
                 :}
             |   ERRORES OpAsig SALIDA PuntoComa
             |   ERRORES OpAsig NUMERO PuntoComa

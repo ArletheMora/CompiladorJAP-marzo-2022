@@ -106,7 +106,7 @@ public class TablaSimbolos {
 
     public void ObtenDatos() {
         for (int i = 0; i < ListaTokens.size(); i++) {
-            IDE.m.addRow(new Object[]{ListaTokens.get(i).getLinea(),ListaTokens.get(i).getLexema(),ListaTokens.get(i).getTipoDato(),ListaTokens.get(i).getValor()});
+            IDE.m.addRow(new Object[]{ListaTokens.get(i).getLinea()+1,ListaTokens.get(i).getLexema(),ListaTokens.get(i).getTipoDato(),ListaTokens.get(i).getValor()});
         }
     }
 
