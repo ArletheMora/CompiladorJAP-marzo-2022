@@ -57,6 +57,7 @@ action code{:
     public static String Cad="";
     public static String op_rel="";
     public static boolean entraIf=false;
+    public static String ident="";
     public static int cont=0;
     public static int contSB =0;
     private static String nuevaTemp(){
@@ -640,10 +641,9 @@ ASIGNACION  ::= /* Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                     if (IDE.tablaSimbolos_id.buscarToken(i.toString())) { 
                         if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){ //si no tiene tipo
                             this.parser.errores += "Error semantico 7. Línea: "+ (eright + 1) + " El identificador '"+ (i.toString())+"' no está definido \n"; 
-                        }else{
-                            IDE.tablaSimbolos_id.asignaValor(i.toString(), dato);
                         }
                     }
+                    ident = i.toString();
                     IDE.numLineasExp.add(eright+1);
                 :}
             |   ERRORES OpAsig SALIDA PuntoComa
@@ -673,8 +673,32 @@ ASIGNACION  ::= /* Identificador:i OpAsig Numero_Exact:v PuntoComa :e
                 this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba el operador de asignacion =. \n";
                 :}
 ;
-NUMERO  ::= Numero_Part:v  {: dato=v.toString();:}
-        |   Numero_Exact:v {: dato=v.toString();:}
+NUMERO  ::= Numero_Part:v
+            {: 
+                if (IDE.tablaSimbolos_id.buscarToken(ident)) { 
+                    if (IDE.tablaSimbolos_id.buscaTipo(ident) == null){ //si no tiene tipo
+                        this.parser.errores += "Error semantico 7. Línea: "+ (vright + 1) + " El identificador '"+ (ident)+"' no está definido \n"; 
+                    }else if(!IDE.tablaSimbolos_id.buscaTipo(ident).equals("part") ){ //si no es del mismo tipo
+                         this.parser.errores += "Error semantico 9. Línea: "+ (vright + 1) + " Asignación incompatible del identificador '"+ (ident)+"' \n";    
+                    }else{
+                        IDE.tablaSimbolos_id.asignaValor(ident, v);
+                        dato=v.toString();
+                    }
+                }
+            :}
+        |   Numero_Exact:v
+        {: 
+                if (IDE.tablaSimbolos_id.buscarToken(ident)) { 
+                    if (IDE.tablaSimbolos_id.buscaTipo(ident) == null){ //si no tiene tipo
+                        this.parser.errores += "Error semantico 7. Línea: "+ (vright + 1) + " El identificador '"+ (ident)+"' no está definido \n"; 
+                    }else if(!IDE.tablaSimbolos_id.buscaTipo(ident).equals("exact") ){ //si no es del mismo tipo
+                         this.parser.errores += "Error semantico 9. Línea: "+ (vright + 1) + " Asignación incompatible del identificador '"+ (ident)+"' \n";    
+                    }else{
+                        IDE.tablaSimbolos_id.asignaValor(ident, v);
+                        dato=v.toString();
+                    }
+                }
+            :}
 ;
 METODOS_DEF ::= Identificador OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
             |   ERRORES OpAgrup_ParApert OpAgrup_ParCierre PuntoComa

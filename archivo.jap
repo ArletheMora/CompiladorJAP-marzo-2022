@@ -3,14 +3,17 @@ class figura{
 	try{
 		for(exact i=0;i<10; i++){
 			drawrectangulo(1,1,
-			     1,6,
+			     1,1,
 			     4,1,
 			     4,6);
-exact x;	
-x=5;
-if(x<10){
-x = x + 1 - 3 * x ;
-}
+
+	exact x=5; **incompatible
+
+	part y = 4.5; **variable ya definida
+
+	if(y<10){ **variable no definida
+		x = 5;	**incompatible
+	}
 		}		
 		home(); **Regresa a posición inicial		
 	}catch(exception e){
