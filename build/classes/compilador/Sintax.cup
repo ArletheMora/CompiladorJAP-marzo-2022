@@ -54,6 +54,11 @@ action code{:
     public static int contDato=0;
     public static int contOpe =0;
     private static int actual = 0;
+    public static String Cad="";
+    public static String op_rel="";
+    public static boolean entraIf=false;
+    public static int cont=0;
+    public static int contSB =0;
     private static String nuevaTemp(){
         return "T"+(++actual);
     }
@@ -508,12 +513,43 @@ DECLARA_ID  ::= PR_Exact:t Identificador:i OpAsig Numero_Exact:v PuntoComa :e
 
 ARITMETICAS ::= OpAgrup_ParApert ARITMETICAS OpAgrup_ParCierre
             |   Numero_Exact:n1 OP_ARITMETICO ARITMETICAS
+                {:
+                    RESULT = nuevaTemp();
+                    System.out.println(RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " "  +dato);
+                    Cad=RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " "  +dato;
+                    IDE.listSentencias.add(RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    //
+                    //System.out.println(RESULT + "=" + n + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    //IDE.listSentencias.add(RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " " + dato);
+                    //contOpe++;
+                    
+                :}
             |   Numero_Part:n1 OP_ARITMETICO ARITMETICAS
+                {:
+                    RESULT = nuevaTemp();
+                    System.out.println(RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " "  +dato);
+                    Cad=RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " "  +dato;
+                    IDE.listSentencias.add(RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    //
+                    //System.out.println(RESULT + "=" + n + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    //IDE.listSentencias.add(RESULT + "=" + n1 + " " + IDE.listOpe.get(contOpe) + " " + dato);
+                    //contOpe++;
+                :}
             |   NUMERO :e ARITMETICAS
                 {:this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";:}
             |   ERRORES OP_ARITMETICO ARITMETICAS :e
                 {:this.parser.errores += "Error sintáctico 154. Línea: "+ (eright + 1) + " Se esperaba un dato antes del operador. \n";:}
             |   Identificador:e1 OP_ARITMETICO:op ARITMETICAS
+                {:
+                    RESULT = nuevaTemp();
+                    System.out.println(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " "  +dato);
+                    Cad=RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " "  +dato;
+                    IDE.listSentencias.add(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    //
+                    //System.out.println(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " +dato);
+                    //IDE.listSentencias.add(RESULT + "=" + e1 + " " + IDE.listOpe.get(contOpe) + " " + dato);
+                    //contOpe++;
+                :}
             |   Identificador :e ARITMETICAS
                 {:this.parser.errores += "Error sintáctico 115. Línea: "+ (eright + 1) + " Se esperaba un operador aritmético. \n";:}
             |   NUMERO
@@ -720,6 +756,14 @@ CONCATENACION   ::= SALIDA
 SALIDA  ::= Cadena_texto
 ;
 IF  ::= PR_If OpAgrup_ParApert SENTENCIA_BOOLEANA OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
+        {:
+            cont++;
+            IDE.taIntermedio.append("if " + IDE.listaSentenciaBooleana.get(contSB-1) + " goto " + "L"+cont+"\n");
+            
+            //entraIf=true;
+            //System.out.println(entraIf);
+            
+        :}
     |   ERRORES OpAgrup_ParApert SENTENCIA_BOOLEANA OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
     |   PR_If OpAgrup_ParApert :e OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre 
         {:
@@ -924,7 +968,7 @@ SENTENCIA_BOOLEANA  ::= Identificador:i OP_REL Identificador:o
                     |   ERRORES OP_REL Identificador
                     |   Identificador OP_REL ERRORES
                     |   ERRORES OP_REL ERRORES
-                    |   Identificador:i OP_REL Numero_Exact
+                    |   Identificador:i OP_REL Numero_Exact:v
                         {:
                             if (IDE.tablaSimbolos_id.buscarToken(i.toString())) {
                                 if (IDE.tablaSimbolos_id.buscaTipo(i.toString()) == null){
@@ -933,6 +977,8 @@ SENTENCIA_BOOLEANA  ::= Identificador:i OP_REL Identificador:o
                                     this.parser.errores += "Error semantico 10. Línea: "+ (iright + 1) + " Los identificadores no son compatibles. \n"; 
                                 }
                             }
+                            IDE.listaSentenciaBooleana.add(i.toString()+ " " + op_rel + " "  +v.toString());
+                            contSB++;
                         :}
                     |   ERRORES OP_REL Numero_Exact
                     |   Numero_Exact OP_REL Identificador:i
@@ -1082,12 +1128,12 @@ LLAMAR_METODO   ::= Identificador OpAgrup_ParApert OpAgrup_ParCierre
                         this.parser.errores += "Error sintáctico 29. Linea: "+ (eright + 1) +  ". Se esperaba el símbolo '('. \n";
                     :}
 ;
-OP_REL  ::= OpRel_Menor
-        |   OpRel_Mayor
-        |   OpRel_Igual
-        |   OpRel_MenorIgual 
-        |   OpRel_MayorIgual
-        |   OpRel_Diferente
+OP_REL  ::= OpRel_Menor:v {:op_rel=v.toString();:}
+        |   OpRel_Mayor:v {:op_rel=v.toString();:}
+        |   OpRel_Igual:v {:op_rel=v.toString();:}
+        |   OpRel_MenorIgual:v {:op_rel=v.toString();:} 
+        |   OpRel_MayorIgual:v {:op_rel=v.toString();:}
+        |   OpRel_Diferente:v {:op_rel=v.toString();:}
 ;
 BOOLEAN ::= PR_True 
         |   PR_False
