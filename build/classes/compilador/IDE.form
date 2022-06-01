@@ -11,7 +11,7 @@
           <Color blue="f6" green="f2" red="fa" type="rgb"/>
         </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Por defecto"/>
+          <Color id="Default Cursor"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -227,16 +227,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="740" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="740" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane3" pref="500" max="32767" attributes="0"/>
                       <Component id="jScrollPane4" max="32767" attributes="0"/>
@@ -249,16 +249,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="400" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" pref="180" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane3" min="-2" pref="122" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" min="-2" pref="390" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jScrollPane3" min="-2" pref="186" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jScrollPane4" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="44" max="32767" attributes="0"/>
@@ -279,7 +279,7 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="14" style="0"/>
+                  <Font name="Tahoma" size="24" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -299,9 +299,9 @@
             <Component class="javax.swing.JTextPane" name="txtAreaCod">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="14" style="0"/>
+                  <Font name="Tahoma" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="class figura{&#xa; def void main(){&#xa;&#x9;try{&#xa;&#x9;&#x9;for(exact i=0;i&lt;10; i++){&#xa;&#x9;&#x9;&#x9;drawrectangulo(1,1,&#xa;&#x9;&#x9;&#x9;     1,6,&#xa;&#x9;&#x9;&#x9;     4,1,&#xa;&#x9;&#x9;&#x9;     4,6);&#xa;exact x;&#x9;&#xa;x=5;&#xa;if(x&lt;10){&#xa;x = x + 1 - 3 * x ;&#xa;}&#xa;&#x9;&#x9;}&#x9;&#x9;&#xa;&#x9;&#x9;home(); **Regresa a posici&#xf3;n inicial&#x9;&#x9;&#xa;&#x9;}catch(exception e){&#xa;&#x9;&#x9;stop();&#xa;&#x9;&#x9;home();&#xa;&#x9;}&#xa;&#x9;detener();&#xa; }&#xa; def void detener(){&#xa;&#x9;stop();&#xa;&#x9;home();&#xa; }&#xa;}**Fin class"/>
+                <Property name="text" type="java.lang.String" value="class figura{&#xa; def void main(){&#xa;&#x9;try{&#xa;&#x9;&#x9;for(exact i=0;i&lt;10; i++){&#xa;&#x9;&#x9;&#x9;drawrectangulo(1,1,&#xa;&#x9;&#x9;&#x9;     1,6,&#xa;&#x9;&#x9;&#x9;     4,1,&#xa;&#x9;&#x9;&#x9;     4,6);&#xa;exact x;&#x9;&#xa;&#xa;if(x&lt;10){&#xa;x=5;&#xa;x = x - 2 + 1 - 3 * x * 5;&#xa;}&#xa;&#x9;&#x9;}&#x9;&#x9;&#xa;&#x9;&#x9;home(); **Regresa a posici&#xf3;n inicial&#x9;&#x9;&#xa;&#x9;}catch(exception e){&#xa;&#x9;&#x9;stop();&#xa;&#x9;&#x9;home();&#xa;&#x9;}&#xa;&#x9;detener();&#xa; }&#xa; def void detener(){&#xa;&#x9;stop();&#xa;&#x9;home();&#xa; }&#xa;}**Fin class"/>
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtAreaCodKeyReleased"/>
@@ -369,8 +369,10 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="taIntermedio">
               <Properties>
-                <Property name="editable" type="boolean" value="false"/>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="24" style="0"/>
+                </Property>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
               <AuxValues>

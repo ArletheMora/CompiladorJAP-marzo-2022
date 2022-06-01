@@ -77,13 +77,13 @@ public class IDE extends javax.swing.JFrame {
 
         txtConsola.setEditable(false);
         txtConsola.setColumns(20);
-        txtConsola.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtConsola.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtConsola.setForeground(new java.awt.Color(255, 0, 0));
         txtConsola.setRows(5);
         jScrollPane2.setViewportView(txtConsola);
 
-        txtAreaCod.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtAreaCod.setText("class figura{\n def void main(){\n\ttry{\n\t\tfor(exact i=0;i<10; i++){\n\t\t\tdrawrectangulo(1,1,\n\t\t\t     1,6,\n\t\t\t     4,1,\n\t\t\t     4,6);\nexact x;\t\nx=5;\nif(x<10){\nx = x + 1 - 3 * x ;\n}\n\t\t}\t\t\n\t\thome(); **Regresa a posición inicial\t\t\n\t}catch(exception e){\n\t\tstop();\n\t\thome();\n\t}\n\tdetener();\n }\n def void detener(){\n\tstop();\n\thome();\n }\n}**Fin class");
+        txtAreaCod.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtAreaCod.setText("class figura{\n def void main(){\n\ttry{\n\t\tfor(exact i=0;i<10; i++){\n\t\t\tdrawrectangulo(1,1,\n\t\t\t     1,6,\n\t\t\t     4,1,\n\t\t\t     4,6);\nexact x;\t\n\nif(x<10){\nx=5;\nx = x - 2 + 1 - 3 * x * 5;\n}\n\t\t}\t\t\n\t\thome(); **Regresa a posición inicial\t\t\n\t}catch(exception e){\n\t\tstop();\n\t\thome();\n\t}\n\tdetener();\n }\n def void detener(){\n\tstop();\n\thome();\n }\n}**Fin class");
         txtAreaCod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtAreaCodKeyReleased(evt);
@@ -114,8 +114,8 @@ public class IDE extends javax.swing.JFrame {
             tblSimb.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
-        taIntermedio.setEditable(false);
         taIntermedio.setColumns(20);
+        taIntermedio.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         taIntermedio.setRows(5);
         jScrollPane4.setViewportView(taIntermedio);
 
@@ -129,9 +129,9 @@ public class IDE extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addComponent(jScrollPane4))
@@ -141,15 +141,15 @@ public class IDE extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4)))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -165,7 +165,7 @@ public class IDE extends javax.swing.JFrame {
         btnArchivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnArchivo.setMargin(new java.awt.Insets(2, 2, 2, 2));
 
-        bntNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        bntNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         bntNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/nuevo.png"))); // NOI18N
         bntNuevo.setText("Nuevo archivo");
         bntNuevo.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/nuevo_press.png"))); // NOI18N
@@ -177,7 +177,7 @@ public class IDE extends javax.swing.JFrame {
         });
         btnArchivo.add(bntNuevo);
 
-        btnAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        btnAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/icono_abrir.png"))); // NOI18N
         btnAbrir.setText("Abrir");
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +187,7 @@ public class IDE extends javax.swing.JFrame {
         });
         btnArchivo.add(btnAbrir);
 
-        btnGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        btnGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/icono_guardar.png"))); // NOI18N
         btnGuardar.setText("Guardar ");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +204,7 @@ public class IDE extends javax.swing.JFrame {
         btnEjecutar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEjecutar.setMargin(new java.awt.Insets(2, 2, 2, 2));
 
-        btnAnalizadorLexico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        btnAnalizadorLexico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnAnalizadorLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/lexico.png"))); // NOI18N
         btnAnalizadorLexico.setText("Analizador Lexico");
         btnAnalizadorLexico.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +214,7 @@ public class IDE extends javax.swing.JFrame {
         });
         btnEjecutar.add(btnAnalizadorLexico);
 
-        bntCompilar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_MASK));
+        bntCompilar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
         bntCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/compilar.png"))); // NOI18N
         bntCompilar.setText("Compilar");
         bntCompilar.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +231,7 @@ public class IDE extends javax.swing.JFrame {
         btnTablas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnTablas.setMargin(new java.awt.Insets(2, 2, 2, 2));
 
-        bntTablaPalReserv.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        bntTablaPalReserv.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         bntTablaPalReserv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/reservadas.png"))); // NOI18N
         bntTablaPalReserv.setText("Tablas fijas");
         bntTablaPalReserv.addActionListener(new java.awt.event.ActionListener() {
@@ -241,7 +241,7 @@ public class IDE extends javax.swing.JFrame {
         });
         btnTablas.add(bntTablaPalReserv);
 
-        btnTablaIdentificadores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        btnTablaIdentificadores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnTablaIdentificadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/identificador.png"))); // NOI18N
         btnTablaIdentificadores.setText("Tabla de Identificadores");
         btnTablaIdentificadores.addActionListener(new java.awt.event.ActionListener() {
@@ -282,6 +282,8 @@ public class IDE extends javax.swing.JFrame {
         //Para mostrar el número de linea
         numeroLinea = new NumeroLinea(txtAreaCod);
         jScrollPane1.setRowHeaderView(numeroLinea);
+        
+        
     }
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         dir.Abrir(this);
@@ -412,12 +414,15 @@ public class IDE extends javax.swing.JFrame {
         listSentencias.clear();
         analizadorLexico();
         analizadorSint();
+        //nuevosAjustes 31 mayo
+        
+        //fin nuevos
         todosErrores = errores + erroresSint;
         if (!todosErrores.equals("")) {
             txtConsola.setText(todosErrores);
             txtConsola.setForeground(new Color(255, 0, 0));
         } else {
-            txtConsola.setText("Analisis Sintatico realizado correctamente \n");
+            txtConsola.setText("Análisis realizado correctamente \n"); 
             txtConsola.setForeground(new Color(25, 111, 61));
             tablaSimbolos_id.ObtenDatos();
 
@@ -524,15 +529,15 @@ public class IDE extends javax.swing.JFrame {
     }
 //Fin métodos HashMap
 
-    public void mostrarIntermedio() {
-        for (int i = 0; i < listSentencias.size(); i++) {
-            taIntermedio.append(listSentencias.get(i) + "\n");
-        }
-
-        for (int i = 0; i < IDE.listOpe.size(); i++) {
-            System.out.println(IDE.listOpe.get(i));
-        }
-    }
+//    public void mostrarIntermedio() {
+//        for (int i = 0; i < listSentencias.size(); i++) {
+//            taIntermedio.append(listSentencias.get(i) + "\n");
+//        }
+//
+//        for (int i = 0; i < IDE.listOpe.size(); i++) {
+//            System.out.println(IDE.listOpe.get(i));
+//        }
+//    }
 
     public void analizadorSint() {
 
